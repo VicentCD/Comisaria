@@ -1,0 +1,15 @@
+idPolicia,nombre,numplaca,edad,departamento,foto
+
+4,"Luis Lopez",7765AS,32,B1,NULL
+
+5,"Matias Prats",3221DF,29,A2,NULL
+
+6,"Sara Barroso",6678ZC,37,A3,NULL
+
+7,"Joan Sazas",4598CV,44,A2,NULL
+
+8,"Luisa Perez",3444BB,52,B1,NULL
+
+9,"Antonia San Juan",7689DF,59,B1,NULL
+
+10,"Pablo Capdevila",3466SD,62,B2,NULL
