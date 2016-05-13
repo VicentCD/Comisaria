@@ -45,6 +45,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="JDialog"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttdialogActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
