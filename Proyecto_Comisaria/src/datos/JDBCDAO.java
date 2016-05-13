@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import modelo.*;
+import java.sql.Date;
 
 public class JDBCDAO {
 
@@ -28,7 +29,15 @@ public class JDBCDAO {
         PreparedStatement ps;
         ResultSet rs;
         ps = conexion.prepareStatement("INSERT INTO multas values ('?', '?', '?', '?', '?', '?', '?')");
-        
+        ps.setInt(1, m.getId());
+        ps.setString(2, m.getDescripcion()) ;
+        ps.setDate(3, m.getFecha());
+        ps.setDouble(4, m.getImporte());
+        ps.setInt(5, m.getIdPolicia());
+        ps.setString(6, m.getNifInfractor());
+        ps.setInt(7, m.getIdTipo());
+        rs= ps.executeQuery();
+        comprobacion=true;
         return comprobacion;
     }
 
