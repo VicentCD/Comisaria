@@ -8,6 +8,15 @@ public class MultaTipo {
     private Tipo tipo;
     private int carnetpuntos;
 
+    
+    /**
+     * Constructor MultaTipo
+     * @param id
+     * @param descripcion
+     * @param importe
+     * @param tipo
+     * @param carnetpuntos 
+     */
     public MultaTipo(int id, String descripcion, double importe, Tipo tipo, int carnetpuntos) {
         this.id = id;
         this.descripcion = descripcion;
