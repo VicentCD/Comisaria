@@ -1,10 +1,11 @@
 package modelo;
 
 public class MultaTipo {
+
     private int id;
     private String descripcion;
     private double importe;
-    private Tipo tipo; 
+    private Tipo tipo;
     private int carnetpuntos;
 
     public MultaTipo(int id, String descripcion, double importe, Tipo tipo, int carnetpuntos) {
