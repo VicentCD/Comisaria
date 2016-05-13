@@ -23,6 +23,11 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         bttdialog.setText("JDialog");
+        bttdialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttdialogActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -43,6 +48,12 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bttdialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttdialogActionPerformed
+
+        MultasIntroducir dialog = new MultasIntroducir(this,true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_bttdialogActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

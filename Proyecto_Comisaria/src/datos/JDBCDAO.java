@@ -14,6 +14,7 @@ public class JDBCDAO {
     public Connection CrearConexion() {
         try {
             this.conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/comisaria", "root", "root");
+            
 
         } catch (SQLException e) {
             //LabelConexion.setText(e.getMessage() + " -- " + e.getErrorCode());
