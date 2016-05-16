@@ -2,7 +2,6 @@ package modelo;
 import java.util.Date;
 
 public class Multa {
-    private int id;
     private String descripcion;
     private Date fecha;
     private double importe;
@@ -10,8 +9,7 @@ public class Multa {
     private String nifInfractor;
     private int idTipo;
 
-    public Multa(int id, String descripcion, Date fecha, double importe, int idPolicia, String nifInfractor, int idTipo) {
-        this.id = id;
+    public Multa(String descripcion, Date fecha, double importe, int idPolicia, String nifInfractor, int idTipo) {
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.importe = importe;
@@ -20,14 +18,7 @@ public class Multa {
         this.idTipo = idTipo;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    
     public String getDescripcion() {
         return descripcion;
     }
