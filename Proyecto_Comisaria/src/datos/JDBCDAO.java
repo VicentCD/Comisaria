@@ -32,7 +32,8 @@ public class JDBCDAO {
         ps = conexion.prepareStatement("INSERT INTO multas values ('?', '?', '?', '?', '?', '?', '?')");
         ps.setInt(1, m.getId());
         ps.setString(2, m.getDescripcion()) ;
-        ps.setDate(3, m.getFecha());
+        java.sql.Date fechaSql = new java.sql.Date (m.getFecha().getTime());
+        ps.setDate(3, fechaSql);
         ps.setDouble(4, m.getImporte());
         ps.setInt(5, m.getIdPolicia());
         ps.setString(6, m.getNifInfractor());

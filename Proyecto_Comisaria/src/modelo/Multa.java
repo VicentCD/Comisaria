@@ -10,7 +10,7 @@ public class Multa {
     private String nifInfractor;
     private int idTipo;
 
-    public Multa(int id, String descripcion, String fecha, double importe, int idPolicia, String nifInfractor, int idTipo) {
+    public Multa(int id, String descripcion, Date fecha, double importe, int idPolicia, String nifInfractor, int idTipo) {
         this.id = id;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -36,11 +36,13 @@ public class Multa {
         this.descripcion = descripcion;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
+        java.util.Date utilDate = new java.util.Date();
+    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
