@@ -7,15 +7,15 @@ public class MultasIntroducir extends javax.swing.JDialog {
     /**
      * Creates new form MultasIntroducir
      */
-    public MultasIntroducir(java.awt.Frame parent) {
+    JDBCDAO jd_multas;
+
+    public MultasIntroducir(java.awt.Frame parent, boolean modal, JDBCDAO jd) {
 //        super(parent, modal);
         initComponents();
-        JDBCDAO jd = new JDBCDAO();
-        idMulta.setText(jd.recogerUltimo("select id from multas order by id", "id"));
+        jd_multas= jd;
+        idMulta.setText(jd.recogerUltimo("select * from multas order by id", "id"));
     }
 
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,8 +83,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-   
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

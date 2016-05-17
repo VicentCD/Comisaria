@@ -1,5 +1,6 @@
 package vistas;
 
+import datos.JDBCDAO;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -15,13 +16,14 @@ public class Principal extends javax.swing.JFrame {
     java.util.Calendar calendario;
     int dia, mes, año, hora, minutos, segundos;
     String horaf = "";
-    
+     JDBCDAO jd = new JDBCDAO();
     
     public Principal() {
         initComponents();
+
         setTitle("Centro de Administracion Policial");
         setLocationRelativeTo(null);
-
+       
         //Cambiar Icono de ventana
          setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono_ventana_policia.png")).getImage());
 
@@ -158,7 +160,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void btt_multasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btt_multasActionPerformed
 
-        MultasIntroducir multas_ventana = new MultasIntroducir(this, true);
+        MultasIntroducir multas_ventana = new MultasIntroducir(this, true, jd);
         multas_ventana.setVisible(true);
     }//GEN-LAST:event_btt_multasActionPerformed
 

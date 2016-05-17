@@ -14,6 +14,12 @@ public class JDBCDAO {
 
     private Connection conexion;
 
+    public JDBCDAO() {
+        this.CrearConexion();
+    }
+
+    
+    
     public Connection CrearConexion() {
         try {
             this.conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/comisaria", "root", "root");
@@ -62,7 +68,7 @@ public class JDBCDAO {
         try {
             ps = conexion.prepareStatement(sql);
             rs = ps.executeQuery();
-            rs.last();
+            rs.first();
             ultimo = rs.getString(campo);
         } catch (SQLException ex) {
             Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
