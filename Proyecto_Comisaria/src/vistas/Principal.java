@@ -86,7 +86,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btt_policias)
                 .addGap(48, 48, 48)
                 .addComponent(btt_lista)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         pack();
