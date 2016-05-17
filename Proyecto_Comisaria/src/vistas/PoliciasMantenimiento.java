@@ -12,6 +12,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     public PoliciasMantenimiento(java.awt.Frame parent, boolean modal, JDBCDAO jd) {
         super(parent, modal);
         initComponents();
+        this.setTitle("Mantenimiento de Policias");
         jd_multas = jd;
     }
 
