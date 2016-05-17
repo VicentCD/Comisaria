@@ -10,9 +10,9 @@ public class MultasIntroducir extends javax.swing.JDialog {
     JDBCDAO jd_multas;
 
     public MultasIntroducir(java.awt.Frame parent, boolean modal, JDBCDAO jd) {
-//        super(parent, modal);
+        super(parent, modal);
         initComponents();
-        jd_multas= jd;
+        jd_multas = jd;
         idMulta.setText(jd.recogerUltimo("select * from multas order by id", "id"));
     }
 

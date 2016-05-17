@@ -12,20 +12,19 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    
     java.util.Calendar calendario;
     int dia, mes, año, hora, minutos, segundos;
     String horaf = "";
-     JDBCDAO jd = new JDBCDAO();
-    
+    JDBCDAO jd = new JDBCDAO();
+
     public Principal() {
         initComponents();
 
         setTitle("Centro de Administracion Policial");
         setLocationRelativeTo(null);
-       
+
         //Cambiar Icono de ventana
-         setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono_ventana_policia.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono_ventana_policia.png")).getImage());
 
         //Poner Imagen de fondo en JFrame
         ((JPanel) getContentPane()).setOpaque(false);
@@ -36,12 +35,12 @@ public class Principal extends javax.swing.JFrame {
         fondo.setIcon(MyImgCustom);
         getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
         fondo.setBounds(0, 0, MyImgCustom.getIconWidth(), MyImgCustom.getIconHeight());
-        
+
         //Reloj
         reloj();
     }
-    
-        private void reloj() {
+
+    private void reloj() {
 
         calendario = new java.util.GregorianCalendar();
         javax.swing.Timer timer = new javax.swing.Timer(1000, new java.awt.event.ActionListener() {
@@ -165,12 +164,12 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btt_multasActionPerformed
 
     private void btt_policiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btt_policiasActionPerformed
-        PoliciasMantenimiento policias_ventana = new PoliciasMantenimiento(this, true);
+        PoliciasMantenimiento policias_ventana = new PoliciasMantenimiento(this, true, jd);
         policias_ventana.setVisible(true);
     }//GEN-LAST:event_btt_policiasActionPerformed
 
     private void btt_listaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btt_listaActionPerformed
-        MultasListado listado_ventana = new MultasListado(this, true);
+        MultasListado listado_ventana = new MultasListado(this, true, jd);
         listado_ventana.setVisible(true);
     }//GEN-LAST:event_btt_listaActionPerformed
 

@@ -1,22 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vistas;
 
-/**
- *
- * @author ZeChU
- */
+import datos.JDBCDAO;
+
 public class PoliciasMantenimiento extends javax.swing.JDialog {
 
     /**
      * Creates new form PoliciasMantenimiento
      */
-    public PoliciasMantenimiento(java.awt.Frame parent, boolean modal) {
+    JDBCDAO jd_multas;
+
+    public PoliciasMantenimiento(java.awt.Frame parent, boolean modal, JDBCDAO jd) {
         super(parent, modal);
         initComponents();
+        jd_multas = jd;
     }
 
     /**
