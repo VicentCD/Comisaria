@@ -1,5 +1,6 @@
 package vistas;
 
+import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -10,23 +11,56 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
+    
+    java.util.Calendar calendario;
+    int dia, mes, año, hora, minutos, segundos;
+    String horaf = "";
+    
+    
     public Principal() {
         initComponents();
-        setLocationRelativeTo(null);
         setTitle("Centro de Administracion Policial");
+        setLocationRelativeTo(null);
 
         //Cambiar Icono de ventana
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono_ventana_policia.png")).getImage());
+         setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono_ventana_policia.png")).getImage());
 
         //Poner Imagen de fondo en JFrame
-//        ((JPanel) getContentPane()).setOpaque(false);
-//        ImageIcon MyImgCustom = new ImageIcon(this.getClass().getResource("/imagenes/fondo_poli.jpg"));
-//        JLabel fondo = new JLabel();
-//        this.setSize(1200, 600);
-//        this.setResizable(false);
-//        fondo.setIcon(MyImgCustom);
-//        getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
-//        fondo.setBounds(0, 0, MyImgCustom.getIconWidth(), MyImgCustom.getIconHeight());
+        ((JPanel) getContentPane()).setOpaque(false);
+        ImageIcon MyImgCustom = new ImageIcon(this.getClass().getResource("/imagenes/fondo_poli.jpg"));
+        JLabel fondo = new JLabel();
+        this.setSize(1200, 628);
+        this.setResizable(false);
+        fondo.setIcon(MyImgCustom);
+        getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
+        fondo.setBounds(0, 0, MyImgCustom.getIconWidth(), MyImgCustom.getIconHeight());
+        
+        //Reloj
+        reloj();
+    }
+    
+        private void reloj() {
+
+        calendario = new java.util.GregorianCalendar();
+        javax.swing.Timer timer = new javax.swing.Timer(1000, new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent ae) {
+                java.util.Date actual = new java.util.Date();
+                calendario.setTime(actual);
+                dia = calendario.get(Calendar.DAY_OF_MONTH);
+                mes = (calendario.get(Calendar.MONTH) + 1);
+                año = calendario.get(Calendar.YEAR);
+                hora = calendario.get(Calendar.HOUR_OF_DAY);
+                minutos = calendario.get(Calendar.MINUTE);
+                segundos = calendario.get(Calendar.SECOND);
+                String hour = String.format("%02d : %02d : %02d", hora, minutos, segundos);
+                String date = String.format("%02d / %02d / %02d", dia, mes, año);
+                horaf = ("<html><center>" + hour + "<br>" + date);
+                reloj.setText(horaf);
+
+            }
+        });
+        timer.start();
     }
 
     /**
@@ -41,10 +75,15 @@ public class Principal extends javax.swing.JFrame {
         btt_multas = new javax.swing.JButton();
         btt_policias = new javax.swing.JButton();
         btt_lista = new javax.swing.JButton();
+        reloj = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1200, 628));
 
         btt_multas.setText("Multas");
+        btt_multas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btt_multas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btt_multasActionPerformed(evt);
@@ -52,6 +91,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btt_policias.setText("Policias");
+        btt_policias.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btt_policias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btt_policiasActionPerformed(evt);
@@ -59,34 +99,58 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btt_lista.setText("Lista Multas");
+        btt_lista.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btt_lista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btt_listaActionPerformed(evt);
             }
         });
 
+        reloj.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btt_lista)
-                    .addComponent(btt_policias)
-                    .addComponent(btt_multas))
-                .addContainerGap(655, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btt_multas, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btt_policias, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(1027, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btt_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(reloj, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(btt_multas)
-                .addGap(46, 46, 46)
-                .addComponent(btt_policias)
-                .addGap(48, 48, 48)
-                .addComponent(btt_lista)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btt_multas, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btt_policias, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btt_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addComponent(reloj, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -113,5 +177,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btt_lista;
     private javax.swing.JButton btt_multas;
     private javax.swing.JButton btt_policias;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel reloj;
     // End of variables declaration//GEN-END:variables
 }
