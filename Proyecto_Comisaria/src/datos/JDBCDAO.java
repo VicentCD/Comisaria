@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import modelo.*;
 import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JDBCDAO {
 
@@ -53,6 +55,20 @@ public class JDBCDAO {
         return comprobacion;
     }
     
+    public String recogerUltimo(String sql, String campo){
+        String ultimo="";
+        PreparedStatement ps;
+        ResultSet rs;
+        try {
+            ps = conexion.prepareStatement(sql);
+            rs = ps.executeQuery();
+            rs.last();
+            ultimo = rs.getString(campo);
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ultimo;
+    }
     
     
 }

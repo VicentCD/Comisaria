@@ -1,13 +1,17 @@
 package vistas;
 
+import datos.JDBCDAO;
+
 public class MultasIntroducir extends javax.swing.JDialog {
 
     /**
      * Creates new form MultasIntroducir
      */
-    public MultasIntroducir(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public MultasIntroducir(java.awt.Frame parent) {
+//        super(parent, modal);
         initComponents();
+        JDBCDAO jd = new JDBCDAO();
+        idMulta.setText(jd.recogerUltimo("select id from multas order by id", "id"));
     }
 
     
@@ -26,6 +30,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        idMulta = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -39,6 +44,8 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
         jLabel5.setText("Importe");
 
+        idMulta.setText("---");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -49,15 +56,20 @@ public class MultasIntroducir extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(87, 87, 87)
+                        .addComponent(idMulta))
                     .addComponent(jLabel5))
-                .addContainerGap(489, Short.MAX_VALUE))
+                .addContainerGap(405, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(idMulta))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -76,6 +88,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel idMulta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
