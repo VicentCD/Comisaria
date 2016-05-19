@@ -4,12 +4,12 @@ import java.util.Date;
 public class Multa {
     private String descripcion;
     private Date fecha;
-    private double importe;
+    private int importe;
     private int idPolicia;
     private String nifInfractor;
     private int idTipo;
 
-    public Multa(String descripcion, Date fecha, double importe, int idPolicia, String nifInfractor, int idTipo) {
+    public Multa(String descripcion, Date fecha, int importe, int idPolicia, String nifInfractor, int idTipo) {
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.importe = importe;
@@ -41,7 +41,7 @@ public class Multa {
         return importe;
     }
 
-    public void setImporte(double importe) {
+    public void setImporte(int importe) {
         this.importe = importe;
     }
 
