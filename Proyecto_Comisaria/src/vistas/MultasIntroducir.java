@@ -16,7 +16,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
         jd_multas = jd;
         idMulta.setText(jd.recogerUltimo("select * from multas order by id", "id"));
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -68,7 +68,7 @@ public class JDBCDAO {
         try {
             ps = conexion.prepareStatement(sql);
             rs = ps.executeQuery();
-            rs.first();
+            rs.last();
             ultimo = rs.getString(campo);
         } catch (SQLException ex) {
             Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
