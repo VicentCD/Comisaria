@@ -22,8 +22,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
         initComponents();
         this.setTitle("Introducción de Multas");
         this.setLocationRelativeTo(null);
-        jd_multas = jdbcdao;        JScrollPane scrollPane = new JScrollPane(PoliciaList);
-        PoliciaList.add(scrollPane, BorderLayout.CENTER);
+        jd_multas = jdbcdao;        
                 
         //Lista auxiliar
         DefaultListModel modelo = new DefaultListModel();
