@@ -1,11 +1,13 @@
 package vistas;
 
 import datos.JDBCDAO;
+import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JScrollPane;
 import modelo.MultaTipo;
 import modelo.Policia;
 
@@ -23,12 +25,15 @@ public class MultasIntroducir extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         jd_multas = jdbcdao;
         
+        JScrollPane scrollPane = new JScrollPane(PoliciaList);
+        PoliciaList.add(scrollPane, BorderLayout.CENTER);
+                
         //Lista auxiliar
         DefaultListModel modelo = new DefaultListModel();
         
         //Carga de Datos
         int id = Integer.parseInt(jdbcdao.recogerUltimo("select * from multas order by id", "id")) + 1;
-        idMulta.setText(Integer.toString(id));
+        multaID.setText(Integer.toString(id));
         
         try {
             for (MultaTipo mt : jd_multas.recogerMultasTipo()) {
@@ -70,9 +75,9 @@ public class MultasIntroducir extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         PoliciaList = new javax.swing.JList();
         TipoCombox = new javax.swing.JComboBox();
-        idMulta = new javax.swing.JLabel();
+        multaID = new javax.swing.JLabel();
         nifFormatted = new javax.swing.JFormattedTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        FechaChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -118,7 +123,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        jDateChooser1.setDateFormatString("yyyy-MM-dd HH:mm:ss");
+        FechaChooser.setDateFormatString("yyyy-MM-dd HH:mm:ss");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,9 +140,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(nifFormatted, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(ImporteSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -146,7 +148,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(DescripcionField, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(idMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(multaID, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(TipoCombox, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -155,8 +157,11 @@ public class MultasIntroducir extends javax.swing.JDialog {
                                 .addGap(41, 41, 41)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))))
-                        .addGap(34, 34, 34))))
+                                    .addComponent(FechaChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))))
+                        .addGap(34, 34, 34))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(nifFormatted, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,8 +170,8 @@ public class MultasIntroducir extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(idMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(multaID, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(FechaChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,11 +203,19 @@ public class MultasIntroducir extends javax.swing.JDialog {
     private void BotonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCrearActionPerformed
         // TODO add your handling code here:
         String descripcion, nifInfractor;
-        Date fecha;
+        java.sql.Date fecha;
         double importe;
-        int idPolicia, idTipo;
-
-
+        int idMulta, idPolicia, idTipo;
+        
+        idMulta = Integer.parseInt(multaID.getText());
+        descripcion = DescripcionField.getText();
+        fecha = (java.sql.Date) FechaChooser.getDate();
+        importe =  Double.parseDouble(ImporteSpinner.getValue().toString());
+        //idPolicia = PoliciaList.getSelectedValue();
+        nifInfractor = nifFormatted.getText();
+        //idTipo = ;
+        
+        
     }//GEN-LAST:event_BotonCrearActionPerformed
 
     private void DescripcionFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescripcionFieldActionPerformed
@@ -226,11 +239,10 @@ public class MultasIntroducir extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonCrear;
     private javax.swing.JTextField DescripcionField;
+    private com.toedter.calendar.JDateChooser FechaChooser;
     private javax.swing.JSpinner ImporteSpinner;
     private javax.swing.JList PoliciaList;
     private javax.swing.JComboBox TipoCombox;
-    private javax.swing.JLabel idMulta;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -239,6 +251,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel multaID;
     private javax.swing.JFormattedTextField nifFormatted;
     // End of variables declaration//GEN-END:variables
 }

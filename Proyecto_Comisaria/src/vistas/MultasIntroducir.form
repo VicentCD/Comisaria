@@ -35,10 +35,6 @@
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="nifFormatted" min="-2" pref="147" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="ImporteSpinner" min="-2" pref="94" max="-2" attributes="0"/>
@@ -48,7 +44,7 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="DescripcionField" min="-2" pref="302" max="-2" attributes="0"/>
-                                  <Component id="idMulta" alignment="0" min="-2" pref="68" max="-2" attributes="0"/>
+                                  <Component id="multaID" alignment="0" min="-2" pref="68" max="-2" attributes="0"/>
                                   <Component id="TipoCombox" alignment="0" min="-2" pref="241" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="43" max="32767" attributes="0"/>
@@ -59,11 +55,15 @@
                               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
-                                  <Component id="jDateChooser1" pref="228" max="32767" attributes="0"/>
+                                  <Component id="FechaChooser" pref="228" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="nifFormatted" min="-2" pref="94" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -76,9 +76,9 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="idMulta" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="multaID" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
+                  <Component id="FechaChooser" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="37" max="32767" attributes="0"/>
@@ -197,7 +197,7 @@
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="TipoComboxItemStateChanged"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="idMulta">
+    <Component class="javax.swing.JLabel" name="multaID">
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="nifFormatted">
       <Properties>
@@ -206,7 +206,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+    <Component class="com.toedter.calendar.JDateChooser" name="FechaChooser">
       <Properties>
         <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
       </Properties>
