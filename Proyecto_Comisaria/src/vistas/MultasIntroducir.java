@@ -14,12 +14,12 @@ public class MultasIntroducir extends javax.swing.JDialog {
      */
     JDBCDAO jd_multas;    
 
-    public MultasIntroducir(java.awt.Frame parent, boolean modal, JDBCDAO jd) {
+    public MultasIntroducir(java.awt.Frame parent, boolean modal, JDBCDAO jdbcdao) {
         super(parent, modal);
         initComponents();
         this.setTitle("Introducción de Multas");
-        jd_multas = jd;
-        int id = Integer.parseInt(jd.recogerUltimo("select * from multas order by id", "id")) + 1;
+        jd_multas = jdbcdao;
+        int id = Integer.parseInt(jdbcdao.recogerUltimo("select * from multas order by id", "id")) + 1;
         idMulta.setText(Integer.toString(id));
         
     }

@@ -90,4 +90,13 @@ public class JDBCDAO {
         
         return null;
     }
+    
+    public boolean CargarTablaPolicias(){
+        String idPolicia="", nombre="", numPlaca="", edad="", departamento="";
+        int contador=0;
+        PreparedStatement ps;
+        ResultSet rs;
+        
+        return true;
+    }
 }
