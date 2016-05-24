@@ -3,7 +3,6 @@ package vistas;
 import datos.JDBCDAO;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -23,9 +22,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
         initComponents();
         this.setTitle("Introducción de Multas");
         this.setLocationRelativeTo(null);
-        jd_multas = jdbcdao;
-        
-        JScrollPane scrollPane = new JScrollPane(PoliciaList);
+        jd_multas = jdbcdao;        JScrollPane scrollPane = new JScrollPane(PoliciaList);
         PoliciaList.add(scrollPane, BorderLayout.CENTER);
                 
         //Lista auxiliar
