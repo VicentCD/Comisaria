@@ -83,7 +83,7 @@ public class JDBCDAO {
         PreparedStatement psSelectPolicia = conexion.prepareStatement(sql);
 
         ResultSet rs = psSelectPolicia.executeQuery();
-        
+
         while (rs.next()) {
             MultaTipo mt = new MultaTipo();
             idTipo = rs.getInt("id");
@@ -92,7 +92,7 @@ public class JDBCDAO {
             mt.setId(idTipo);
             mt.setDescripcion(descripcion);
             mt.setImporte(importe);
-            
+
             listaTipo.add(mt);
         }
         return listaTipo;
@@ -100,13 +100,13 @@ public class JDBCDAO {
 
     public List<Policia> MostrarPolicias() {
         List<Policia> listaPolicias = new ArrayList<>();
-        int idPolicia = 0, edad = 0;
-        String nombre = "", numPlaca = "", departamento = "";
+        int idPolicia, edad;
+        String nombre, numPlaca, departamento;
         try {
             PreparedStatement ps = conexion.prepareStatement("SELECT * FROM policia");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                
+
                 idPolicia = rs.getInt("idPolicia");
                 nombre = rs.getString("nombre");
                 numPlaca = rs.getString("numPlaca");
