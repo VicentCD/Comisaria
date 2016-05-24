@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import modelo.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,23 +81,39 @@ public class JDBCDAO {
             ps = conexion.prepareStatement("SELECT * FROM multastipo");
             rs = ps.executeQuery();
             while (rs.next()) {
-                
-                
+
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
     }
-    
-    public boolean CargarTablaPolicias(){
-        String idPolicia="", nombre="", numPlaca="", edad="", departamento="";
-        int contador=0;
-        PreparedStatement ps;
-        ResultSet rs;
-        
-        return true;
+
+    public List<Policia> MostrarPolicias() {
+        List<Policia> listaPolicias = new ArrayList<>();
+        int idPolicia = 0, edad = 0;
+        String nombre = "", numPlaca = "", departamento = "";
+        try {
+            PreparedStatement ps = conexion.prepareStatement("Select * from policias");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                idPolicia = rs.getInt(idPolicia);
+                nombre = rs.getString(nombre);
+                numPlaca = rs.getString(numPlaca);
+                edad = rs.getInt(edad);
+                departamento = rs.getString(departamento);
+
+                Policia p = new Policia(idPolicia, nombre, numPlaca, edad, departamento);
+                listaPolicias.add(p);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return listaPolicias;
     }
 }

@@ -1,27 +1,27 @@
 package modelo;
 
 public class Policia {
-   private int idPolicia;
+   private Integer idPolicia;
    private String nombre;
    private String numPlaca;
-   private int edad;
+   private Integer edad;
    private String departamento;
    private String foto;
 
-    public Policia(int idPolicia, String nombre, String numPlaca, int edad, String departamento, String foto) {
+    public Policia(Integer idPolicia, String nombre, String numPlaca, Integer edad, String departamento) {
         this.idPolicia = idPolicia;
         this.nombre = nombre;
         this.numPlaca = numPlaca;
         this.edad = edad;
         this.departamento = departamento;
-        this.foto = foto;
+        
     }
 
-    public int getIdPolicia() {
+    public Integer getIdPolicia() {
         return idPolicia;
     }
 
-    public void setIdPolicia(int idPolicia) {
+    public void setIdPolicia(Integer idPolicia) {
         this.idPolicia = idPolicia;
     }
 
@@ -41,11 +41,11 @@ public class Policia {
         this.numPlaca = numPlaca;
     }
 
-    public int getEdad() {
+    public Integer getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(Integer edad) {
         this.edad = edad;
     }
 
@@ -55,14 +55,6 @@ public class Policia {
 
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
     }
    
    
