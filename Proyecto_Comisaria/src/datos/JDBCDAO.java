@@ -96,15 +96,15 @@ public class JDBCDAO {
         int idPolicia = 0, edad = 0;
         String nombre = "", numPlaca = "", departamento = "";
         try {
-            PreparedStatement ps = conexion.prepareStatement("Select * from policias");
+            PreparedStatement ps = conexion.prepareStatement("SELECT * FROM policia");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-
-                idPolicia = rs.getInt(idPolicia);
-                nombre = rs.getString(nombre);
-                numPlaca = rs.getString(numPlaca);
-                edad = rs.getInt(edad);
-                departamento = rs.getString(departamento);
+                
+                idPolicia = rs.getInt("idPolicia");
+                nombre = rs.getString("nombre");
+                numPlaca = rs.getString("numPlaca");
+                edad = rs.getInt("edad");
+                departamento = rs.getString("departamento");
 
                 Policia p = new Policia(idPolicia, nombre, numPlaca, edad, departamento);
                 listaPolicias.add(p);
