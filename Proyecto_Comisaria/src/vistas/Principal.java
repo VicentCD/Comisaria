@@ -23,27 +23,31 @@ public class Principal extends javax.swing.JFrame {
 
     public Principal() {
         initComponents();
+
         //Cargar Tabla
-        String[] titulos = {"idPolicia", "Nombre", "Nº Placa", "Edad", "Departamento"};
-        String[] fila = new String[4];
-        List<Policia> listaPolicias;
-        listaPolicias = jd.MostrarPolicias();
-        DefaultTableModel model = new DefaultTableModel(null, titulos);
-        for (Policia p : listaPolicias) {
-            fila[0] = p.getIdPolicia().toString();
-            fila[1] = p.getNombre();
-            fila[2] = p.getNumPlaca();
-            fila[3] = p.getEdad().toString();
-            fila[4] = p.getDepartamento();
-           
-            model.addRow(fila);
-        }
-        this.jTable1.setModel(model);
-        
-        
+//        String[] titulos = {"idPolicia", "Nombre", "Nº Placa", "Edad", "Departamento"};
+//        String[] fila = new String[4];
+//        List<Policia> listaPolicias;
+//        listaPolicias = jd.MostrarPolicias();
+//        DefaultTableModel model = new DefaultTableModel(null, titulos);
+//        for (Policia p : listaPolicias) {
+//            fila[0] = p.getIdPolicia().toString();
+//            fila[1] = p.getNombre();
+//            fila[2] = p.getNumPlaca();
+//            fila[3] = p.getEdad().toString();
+//            fila[4] = p.getDepartamento();
+//           
+//            model.addRow(fila);
+//        }
+//        this.jTable1.setModel(model);
+
         //Titulo
-        setTitle("Centro de Administracion Policial");
-        setLocationRelativeTo(null);
+        this.setTitle("Centro de Administracion Policial");
+
+        //Posicionamiento y Tamaño
+        this.setSize(1200, 628);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
 
         //Cambiar Icono de ventana
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono_ventana_policia.png")).getImage());
@@ -52,8 +56,6 @@ public class Principal extends javax.swing.JFrame {
         ((JPanel) getContentPane()).setOpaque(false);
         ImageIcon MyImgCustom = new ImageIcon(this.getClass().getResource("/imagenes/fondo_poli.jpg"));
         JLabel fondo = new JLabel();
-        this.setSize(1200, 628);
-        this.setResizable(false);
         fondo.setIcon(MyImgCustom);
         getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
         fondo.setBounds(0, 0, MyImgCustom.getIconWidth(), MyImgCustom.getIconHeight());

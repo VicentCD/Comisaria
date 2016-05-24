@@ -13,6 +13,7 @@ public class MultasListado extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setTitle("Listado de Multas");
+        this.setLocationRelativeTo(null);
         jd_multas = jd;
     }
 

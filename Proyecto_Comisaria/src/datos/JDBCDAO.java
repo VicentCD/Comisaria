@@ -74,21 +74,28 @@ public class JDBCDAO {
         return ultimo;
     }
 
-    public List<MultaTipo> recogerMultasTipo() {
-        PreparedStatement ps;
-        ResultSet rs;
-        try {
-            ps = conexion.prepareStatement("SELECT * FROM multastipo");
-            rs = ps.executeQuery();
-            while (rs.next()) {
+    public List<MultaTipo> recogerMultasTipo() throws SQLException {
+        List<MultaTipo> listaTipo = new ArrayList<>();
+        Integer idTipo;
+        String descripcion;
+        Double importe;
+        String sql = "SELECT id, descripcion, importe FROM multastipo ORDER BY id";
+        PreparedStatement psSelectPolicia = conexion.prepareStatement(sql);
 
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
+        ResultSet rs = psSelectPolicia.executeQuery();
+        
+        while (rs.next()) {
+            MultaTipo mt = new MultaTipo();
+            idTipo = rs.getInt("id");
+            descripcion = rs.getString("descripcion");
+            importe = rs.getDouble("importe");
+            mt.setId(idTipo);
+            mt.setDescripcion(descripcion);
+            mt.setImporte(importe);
+            
+            listaTipo.add(mt);
         }
-
-        return null;
+        return listaTipo;
     }
 
     public List<Policia> MostrarPolicias() {

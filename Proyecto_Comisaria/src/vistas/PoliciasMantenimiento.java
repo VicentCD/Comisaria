@@ -13,6 +13,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setTitle("Mantenimiento de Policias");
+        this.setLocationRelativeTo(null);
         jd_multas = jd;
     }
 

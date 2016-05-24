@@ -3,6 +3,9 @@ package vistas;
 import datos.JDBCDAO;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.MultaTipo;
 
 public class MultasIntroducir extends javax.swing.JDialog {
@@ -16,17 +19,18 @@ public class MultasIntroducir extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setTitle("Introducción de Multas");
+        this.setLocationRelativeTo(null);
         jd_multas = jdbcdao;
 
+        int id = Integer.parseInt(jdbcdao.recogerUltimo("select * from multas order by id", "id")) + 1;
+        idMulta.setText(Integer.toString(id));
+        
         try {
-            int id = Integer.parseInt(jdbcdao.recogerUltimo("select * from multas order by id", "id")) + 1;
-            idMulta.setText(Integer.toString(id));
-
             for (MultaTipo mt : jd_multas.recogerMultasTipo()) {
                 TipoCombox.addItem(mt);
             }
-
         } catch (SQLException ex) {
+            Logger.getLogger(MultasIntroducir.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -196,10 +200,11 @@ public class MultasIntroducir extends javax.swing.JDialog {
         try {
             for (MultaTipo mt : jd_multas.recogerMultasTipo()) {
                 if (this.TipoCombox.getSelectedItem().toString().equalsIgnoreCase(mt.toString())) {
-                this.ImporteSpinner.setValue(this.TipoCombox);
+                    this.ImporteSpinner.setValue(mt.getImporte());
                 }
             }
         } catch (SQLException ex) {
+            Logger.getLogger(MultasIntroducir.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_TipoComboxItemStateChanged
 
