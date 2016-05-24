@@ -1,27 +1,34 @@
 package vistas;
 
 import datos.JDBCDAO;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
-import modelo.Multa;
+import modelo.MultaTipo;
 
 public class MultasIntroducir extends javax.swing.JDialog {
 
     /**
      * Creates new form MultasIntroducir
      */
-    JDBCDAO jd_multas;    
+    JDBCDAO jd_multas;
 
     public MultasIntroducir(java.awt.Frame parent, boolean modal, JDBCDAO jdbcdao) {
         super(parent, modal);
         initComponents();
         this.setTitle("Introducción de Multas");
         jd_multas = jdbcdao;
-        int id = Integer.parseInt(jdbcdao.recogerUltimo("select * from multas order by id", "id")) + 1;
-        idMulta.setText(Integer.toString(id));
-        
+
+        try {
+            int id = Integer.parseInt(jdbcdao.recogerUltimo("select * from multas order by id", "id")) + 1;
+            idMulta.setText(Integer.toString(id));
+
+            for (MultaTipo mt : jd_multas.recogerMultasTipo()) {
+                TipoCombox.addItem(mt);
+            }
+
+        } catch (SQLException ex) {
+        }
+
     }
 
     /**
@@ -91,7 +98,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
         FechaField.setText("jTextField2");
 
-        TipoCombox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         TipoCombox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 TipoComboxItemStateChanged(evt);
@@ -115,9 +121,9 @@ public class MultasIntroducir extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(DescripcionField, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TipoCombox, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(NIFfield, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(idMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(idMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TipoCombox, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -159,14 +165,12 @@ public class MultasIntroducir extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(NIFfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(48, 48, 48)
+                        .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(ImporteSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BotonCrear)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(67, 67, 67))
         );
 
@@ -179,7 +183,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
         Date fecha;
         double importe;
         int idPolicia, idTipo;
-        
+
 
     }//GEN-LAST:event_BotonCrearActionPerformed
 
@@ -188,9 +192,15 @@ public class MultasIntroducir extends javax.swing.JDialog {
     }//GEN-LAST:event_DescripcionFieldActionPerformed
 
     private void TipoComboxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TipoComboxItemStateChanged
-        
-        
-        
+
+        try {
+            for (MultaTipo mt : jd_multas.recogerMultasTipo()) {
+                if (this.TipoCombox.getSelectedItem().toString().equalsIgnoreCase(mt.toString())) {
+                this.ImporteSpinner.setValue(this.TipoCombox);
+                }
+            }
+        } catch (SQLException ex) {
+        }
     }//GEN-LAST:event_TipoComboxItemStateChanged
 
 

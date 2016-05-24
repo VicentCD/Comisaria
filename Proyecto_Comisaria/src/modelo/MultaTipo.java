@@ -25,6 +25,9 @@ public class MultaTipo {
         this.carnetpuntos = carnetpuntos;
     }
 
+    public MultaTipo() {
+    }
+
     public int getId() {
         return id;
     }
@@ -63,5 +66,10 @@ public class MultaTipo {
 
     public void setCarnetpuntos(int carnetpuntos) {
         this.carnetpuntos = carnetpuntos;
+    }
+
+    @Override
+    public String toString() {
+        return id + " - " + descripcion; 
     }
 }
