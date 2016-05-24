@@ -25,7 +25,8 @@ public class MultasIntroducir extends javax.swing.JDialog {
         
         //Lista auxiliar
         DefaultListModel modelo = new DefaultListModel();
-
+        
+        //Carga de Datos
         int id = Integer.parseInt(jdbcdao.recogerUltimo("select * from multas order by id", "id")) + 1;
         idMulta.setText(Integer.toString(id));
         
