@@ -73,7 +73,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
         TipoCombox = new javax.swing.JComboBox();
         multaID = new javax.swing.JLabel();
         nifFormatted = new javax.swing.JFormattedTextField();
-        FechaChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -119,8 +118,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        FechaChooser.setDateFormatString("yyyy-MM-dd HH:mm:ss");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,9 +148,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel1))
                                 .addGap(41, 41, 41)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addComponent(FechaChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(34, 34, 34))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nifFormatted, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,7 +162,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(multaID, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(FechaChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,7 +199,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
         
         idMulta = Integer.parseInt(multaID.getText());
         descripcion = DescripcionField.getText();
-        fecha = (java.sql.Date) FechaChooser.getDate();
+        //fecha = (java.sql.Date) FechaChooser.getDate();
         importe =  Double.parseDouble(ImporteSpinner.getValue().toString());
         //idPolicia = PoliciaList.getSelectedValue();
         nifInfractor = nifFormatted.getText();
@@ -235,7 +229,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonCrear;
     private javax.swing.JTextField DescripcionField;
-    private com.toedter.calendar.JDateChooser FechaChooser;
     private javax.swing.JSpinner ImporteSpinner;
     private javax.swing.JList PoliciaList;
     private javax.swing.JComboBox TipoCombox;

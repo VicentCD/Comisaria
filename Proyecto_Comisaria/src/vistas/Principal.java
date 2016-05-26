@@ -25,21 +25,21 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
 
         //Cargar Tabla
-//        String[] titulos = {"idPolicia", "Nombre", "Nº Placa", "Edad", "Departamento"};
-//        String[] fila = new String[4];
-//        List<Policia> listaPolicias;
-//        listaPolicias = jd.MostrarPolicias();
-//        DefaultTableModel model = new DefaultTableModel(null, titulos);
-//        for (Policia p : listaPolicias) {
-//            fila[0] = p.getIdPolicia().toString();
-//            fila[1] = p.getNombre();
-//            fila[2] = p.getNumPlaca();
-//            fila[3] = p.getEdad().toString();
-//            fila[4] = p.getDepartamento();
-//           
-//            model.addRow(fila);
-//        }
-//        this.jTable1.setModel(model);
+        String[] titulos = {"idPolicia", "Nombre", "Nº Placa", "Edad", "Departamento"};
+        String[] fila = new String[5];
+        List<Policia> listaPolicias;
+        listaPolicias = jd.MostrarPolicias();
+        DefaultTableModel model = new DefaultTableModel(null, titulos);
+        for (Policia p : listaPolicias) {
+            fila[0] = p.getIdPolicia().toString();
+            fila[1] = p.getNombre();
+            fila[2] = p.getNumPlaca();
+            fila[3] = p.getEdad().toString();
+            fila[4] = p.getDepartamento();
+           
+            model.addRow(fila);
+        }
+        this.jTable1.setModel(model);
 
         //Titulo
         this.setTitle("Centro de Administracion Policial");
