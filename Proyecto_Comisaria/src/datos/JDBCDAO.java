@@ -101,7 +101,7 @@ public class JDBCDAO {
     public List<Policia> MostrarPolicias() {
         List<Policia> listaPolicias = new ArrayList<>();
         int idPolicia, edad;
-        String nombre, numPlaca, departamento;
+        String nombre, numPlaca, departamento, foto;
         try {
             PreparedStatement ps = conexion.prepareStatement("SELECT * FROM policia");
             ResultSet rs = ps.executeQuery();
@@ -112,8 +112,8 @@ public class JDBCDAO {
                 numPlaca = rs.getString("numPlaca");
                 edad = rs.getInt("edad");
                 departamento = rs.getString("departamento");
-
-                Policia p = new Policia(idPolicia, nombre, numPlaca, edad, departamento);
+                foto = rs.getString("foto");
+                Policia p = new Policia(idPolicia, nombre, numPlaca, edad, departamento, foto);
                 listaPolicias.add(p);
             }
 

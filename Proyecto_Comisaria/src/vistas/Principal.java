@@ -20,13 +20,14 @@ public class Principal extends javax.swing.JFrame {
     int dia, mes, año, hora, minutos, segundos;
     String horaf = "";
     JDBCDAO jd = new JDBCDAO();
+    Policia pSelected;
 
     public Principal() {
         initComponents();
 
         //Cargar Tabla
         String[] titulos = {"idPolicia", "Nombre", "Nº Placa", "Edad", "Departamento"};
-        String[] fila = new String[5];
+        String[] fila = new String[6];
         List<Policia> listaPolicias;
         listaPolicias = jd.MostrarPolicias();
         DefaultTableModel model = new DefaultTableModel(null, titulos);
@@ -36,7 +37,7 @@ public class Principal extends javax.swing.JFrame {
             fila[2] = p.getNumPlaca();
             fila[3] = p.getEdad().toString();
             fila[4] = p.getDepartamento();
-           
+            fila[5] = p.getFoto();
             model.addRow(fila);
         }
         this.jTable1.setModel(model);
@@ -107,6 +108,11 @@ public class Principal extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         btt_multas.setText("Multas");
         btt_multas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -151,6 +157,11 @@ public class Principal extends javax.swing.JFrame {
                 "idPolicia", "Nombre", "Nº Placa", "Edad", "Departamento"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -160,40 +171,35 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btt_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(reloj, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btt_multas, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btt_policias, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
+                    .addComponent(btt_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btt_multas, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btt_policias, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(reloj, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 48, Short.MAX_VALUE))))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(btt_multas, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btt_multas, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(btt_policias, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77)))
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btt_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(reloj, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -207,14 +213,39 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btt_multasActionPerformed
 
     private void btt_policiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btt_policiasActionPerformed
-        PoliciasMantenimiento policias_ventana = new PoliciasMantenimiento(this, true, jd);
+        PoliciasMantenimiento policias_ventana = new PoliciasMantenimiento(this, true, jd, pSelected);
         policias_ventana.setVisible(true);
+
     }//GEN-LAST:event_btt_policiasActionPerformed
 
     private void btt_listaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btt_listaActionPerformed
         MultasListado listado_ventana = new MultasListado(this, true, jd);
         listado_ventana.setVisible(true);
     }//GEN-LAST:event_btt_listaActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int row = jTable1.getSelectedRow();
+        int col = jTable1.getColumnCount();
+        Integer idPolicia = 0, edad = 0;
+        String nombre = "", numPlaca = "", departamento = "", foto = "";
+        
+        idPolicia = Integer.parseInt( (String) jTable1.getValueAt(row, 0));
+        nombre = (String) jTable1.getValueAt(row, 1);
+        numPlaca = (String) jTable1.getValueAt(row, 2);
+        edad =  Integer.parseInt( (String) jTable1.getValueAt(row, 3));
+        departamento = (String) jTable1.getValueAt(row, 4);
+        //foto = (String) jTable1.getValueAt(row, 5);
+        
+        pSelected= new Policia(idPolicia, nombre, numPlaca, edad, departamento, foto);
+      
+
+
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

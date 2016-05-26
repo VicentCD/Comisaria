@@ -8,14 +8,21 @@ public class Policia {
    private String departamento;
    private String foto;
 
-    public Policia(Integer idPolicia, String nombre, String numPlaca, Integer edad, String departamento) {
+    public Policia() {
+    }
+
+   
+   
+    public Policia(Integer idPolicia, String nombre, String numPlaca, Integer edad, String departamento, String foto) {
         this.idPolicia = idPolicia;
         this.nombre = nombre;
         this.numPlaca = numPlaca;
         this.edad = edad;
         this.departamento = departamento;
-        
+        this.foto = foto;
     }
+
+  
 
     public Integer getIdPolicia() {
         return idPolicia;
@@ -56,6 +63,16 @@ public class Policia {
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+    
+    
 
     @Override
     public String toString() {
