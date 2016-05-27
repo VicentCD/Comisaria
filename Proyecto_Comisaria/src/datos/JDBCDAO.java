@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class JDBCDAO {
 
@@ -98,12 +99,14 @@ public class JDBCDAO {
         return listaTipo;
     }
 
-    public List<Policia> MostrarPolicias() {
+    public List<Policia> MostrarPolicias(String ordenacion) {
         List<Policia> listaPolicias = new ArrayList<>();
         int idPolicia, edad;
-        String nombre, numPlaca, departamento, foto;
+        String nombre, numPlaca, departamento, foto, sql="SELECT * FROM policia ORDER BY "+ordenacion;
         try {
-            PreparedStatement ps = conexion.prepareStatement("SELECT * FROM policia");
+            
+            
+            PreparedStatement ps = conexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 

@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import modelo.Multa;
 import modelo.MultaTipo;
 import modelo.Policia;
 
@@ -22,30 +24,29 @@ public class MultasIntroducir extends javax.swing.JDialog {
         initComponents();
         this.setTitle("Introducción de Multas");
         this.setLocationRelativeTo(null);
-        jd_multas = jdbcdao;        
-                
+        jd_multas = jdbcdao;
+
         //Lista auxiliar
         DefaultListModel modelo = new DefaultListModel();
-        
+
         //Carga de Datos
         int id = Integer.parseInt(jdbcdao.recogerUltimo("select * from multas order by id", "id")) + 1;
         multaID.setText(Integer.toString(id));
-        
+
         try {
             for (MultaTipo mt : jd_multas.recogerMultasTipo()) {
                 TipoCombox.addItem(mt);
             }
-            
-            for (Policia p : jd_multas.MostrarPolicias()) { 
+
+            for (Policia p : jd_multas.MostrarPolicias("idPolicia")) {
                 modelo.addElement(p);
-                this.PoliciaList.setModel(modelo);
+
             }
+            this.PoliciaList.setModel(modelo);
             
         } catch (SQLException ex) {
             Logger.getLogger(MultasIntroducir.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
 
     }
 
@@ -73,6 +74,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
         TipoCombox = new javax.swing.JComboBox();
         multaID = new javax.swing.JLabel();
         nifFormatted = new javax.swing.JFormattedTextField();
+        FechaChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -118,6 +120,8 @@ public class MultasIntroducir extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
+        FechaChooser.setDateFormatString("yyyy-MM-dd HH:mm:ss");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,7 +152,9 @@ public class MultasIntroducir extends javax.swing.JDialog {
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel1))
                                 .addGap(41, 41, 41)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                                    .addComponent(FechaChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(34, 34, 34))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nifFormatted, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,7 +168,8 @@ public class MultasIntroducir extends javax.swing.JDialog {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(multaID, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(FechaChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -193,19 +200,35 @@ public class MultasIntroducir extends javax.swing.JDialog {
     private void BotonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCrearActionPerformed
         // TODO add your handling code here:
         String descripcion, nifInfractor;
-        java.sql.Date fecha;
+        java.util.Date fecha_java = new java.util.Date();
         double importe;
-        int idMulta, idPolicia, idTipo;
-        
-        idMulta = Integer.parseInt(multaID.getText());
+        int idPolicia, idTipo;
+        Policia p;
+        MultaTipo mt;
+
         descripcion = DescripcionField.getText();
-        //fecha = (java.sql.Date) FechaChooser.getDate();
-        importe =  Double.parseDouble(ImporteSpinner.getValue().toString());
-        //idPolicia = PoliciaList.getSelectedValue();
+        
+        fecha_java = FechaChooser.getDate();
+        
+        importe = Double.parseDouble(ImporteSpinner.getValue().toString());
+        
+        p = (Policia) PoliciaList.getSelectedValue();
+        idPolicia = p.getIdPolicia();
+        
         nifInfractor = nifFormatted.getText();
-        //idTipo = ;
         
+        mt = (MultaTipo) TipoCombox.getSelectedItem();
+        idTipo = mt.getId();
         
+        Multa m = new Multa(descripcion,fecha_java,importe,idPolicia,nifInfractor,idTipo);
+        
+        try {
+            jd_multas.introducirMulta(m);
+            JOptionPane.showMessageDialog(this, "La multa se ha introducido Correctamente.");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "La multa no se ha introducido. Error: " + ex);
+        }
+
     }//GEN-LAST:event_BotonCrearActionPerformed
 
     private void DescripcionFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescripcionFieldActionPerformed
@@ -229,6 +252,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonCrear;
     private javax.swing.JTextField DescripcionField;
+    private com.toedter.calendar.JDateChooser FechaChooser;
     private javax.swing.JSpinner ImporteSpinner;
     private javax.swing.JList PoliciaList;
     private javax.swing.JComboBox TipoCombox;
