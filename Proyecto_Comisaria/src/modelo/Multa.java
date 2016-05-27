@@ -1,7 +1,9 @@
 package modelo;
+
 import java.util.Date;
 
 public class Multa {
+
     private String descripcion;
     private Date fecha;
     private double importe;
@@ -18,7 +20,6 @@ public class Multa {
         this.idTipo = idTipo;
     }
 
-    
     public String getDescripcion() {
         return descripcion;
     }
@@ -28,8 +29,8 @@ public class Multa {
     }
 
     public Date getFecha() {
-        java.util.Date utilDate = new java.util.Date();
-    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+//        java.util.Date utilDate = new java.util.Date();
+//        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         return fecha;
     }
 
@@ -68,5 +69,5 @@ public class Multa {
     public void setIdTipo(int idTipo) {
         this.idTipo = idTipo;
     }
-    
+
 }

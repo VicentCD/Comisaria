@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import modelo.*;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -33,11 +35,10 @@ public class JDBCDAO {
         return conexion;
     }
 
-    public boolean introducirMulta(Multa m) throws SQLException {
-        boolean comprobacion = false;
+    public int introducirMulta(Multa m) throws SQLException {
         PreparedStatement ps;
-        ResultSet rs;
-        ps = conexion.prepareStatement("INSERT INTO multas values ('?', '?', '?', '?', '?', '?')");
+        int filasafectadas;
+        ps = conexion.prepareStatement("INSERT INTO multas VALUES (null,?,?,?,?,?,?)");
         ps.setString(1, m.getDescripcion());
         java.sql.Date fechaSql = new java.sql.Date(m.getFecha().getTime());
         ps.setDate(2, fechaSql);
@@ -45,9 +46,9 @@ public class JDBCDAO {
         ps.setInt(4, m.getIdPolicia());
         ps.setString(5, m.getNifInfractor());
         ps.setInt(6, m.getIdTipo());
-        rs = ps.executeQuery();
-        comprobacion = true;
-        return comprobacion;
+        
+        filasafectadas = ps.executeUpdate();
+        return filasafectadas;
     }
 
     public boolean actualizacionPolicia(Policia p) throws SQLException {
@@ -102,10 +103,9 @@ public class JDBCDAO {
     public List<Policia> MostrarPolicias(String ordenacion) {
         List<Policia> listaPolicias = new ArrayList<>();
         int idPolicia, edad;
-        String nombre, numPlaca, departamento, foto, sql="SELECT * FROM policia ORDER BY "+ordenacion;
+        String nombre, numPlaca, departamento, foto, sql = "SELECT * FROM policia ORDER BY " + ordenacion;
         try {
-            
-            
+
             PreparedStatement ps = conexion.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

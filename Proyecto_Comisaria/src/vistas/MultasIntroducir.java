@@ -3,6 +3,7 @@ package vistas;
 import datos.JDBCDAO;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -43,7 +44,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
             }
             this.PoliciaList.setModel(modelo);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(MultasIntroducir.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -64,7 +65,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        BotonCrear = new javax.swing.JButton();
+        InsertarMulta = new javax.swing.JButton();
         DescripcionField = new javax.swing.JTextField();
         ImporteSpinner = new javax.swing.JSpinner();
         jLabel6 = new javax.swing.JLabel();
@@ -88,10 +89,10 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
         jLabel5.setText("Importe");
 
-        BotonCrear.setText("Insertar Multa");
-        BotonCrear.addActionListener(new java.awt.event.ActionListener() {
+        InsertarMulta.setText("Insertar Multa");
+        InsertarMulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonCrearActionPerformed(evt);
+                InsertarMultaActionPerformed(evt);
             }
         });
 
@@ -141,7 +142,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(ImporteSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BotonCrear))
+                                .addComponent(InsertarMulta))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(DescripcionField, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,7 +190,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(ImporteSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BotonCrear)))
+                            .addComponent(InsertarMulta)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(67, 67, 67))
         );
@@ -197,39 +198,43 @@ public class MultasIntroducir extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BotonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCrearActionPerformed
+    private void InsertarMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarMultaActionPerformed
         // TODO add your handling code here:
-        String descripcion, nifInfractor;
-        java.util.Date fecha_java = new java.util.Date();
+        String descripcion, nifInfractor, prueba;
+        java.util.Date fecha_java;
         double importe;
         int idPolicia, idTipo;
         Policia p;
         MultaTipo mt;
-
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        
         descripcion = DescripcionField.getText();
-        
+
         fecha_java = FechaChooser.getDate();
-        
+
         importe = Double.parseDouble(ImporteSpinner.getValue().toString());
-        
+
         p = (Policia) PoliciaList.getSelectedValue();
         idPolicia = p.getIdPolicia();
-        
+
         nifInfractor = nifFormatted.getText();
-        
+        if (nifInfractor.equalsIgnoreCase("        - ")) {
+            nifInfractor = null;
+        }
+
         mt = (MultaTipo) TipoCombox.getSelectedItem();
         idTipo = mt.getId();
-        
-        Multa m = new Multa(descripcion,fecha_java,importe,idPolicia,nifInfractor,idTipo);
-        
+
+        Multa m = new Multa(descripcion, fecha_java, importe, idPolicia, nifInfractor, idTipo);
+
         try {
             jd_multas.introducirMulta(m);
-            JOptionPane.showMessageDialog(this, "La multa se ha introducido Correctamente.");
+            JOptionPane.showMessageDialog(this, "La multa se ha introducido correctamente.");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "La multa no se ha introducido. Error: " + ex);
         }
 
-    }//GEN-LAST:event_BotonCrearActionPerformed
+    }//GEN-LAST:event_InsertarMultaActionPerformed
 
     private void DescripcionFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescripcionFieldActionPerformed
         // TODO add your handling code here:
@@ -250,10 +255,10 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotonCrear;
     private javax.swing.JTextField DescripcionField;
     private com.toedter.calendar.JDateChooser FechaChooser;
     private javax.swing.JSpinner ImporteSpinner;
+    private javax.swing.JButton InsertarMulta;
     private javax.swing.JList PoliciaList;
     private javax.swing.JComboBox TipoCombox;
     private javax.swing.JLabel jLabel1;

@@ -26,7 +26,8 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
 
         //Cargar Tabla Policia
-        cargaTablaPolicias();
+        cargaTablaPolicias("idPolicia");
+        PoliciaTabla.setAutoCreateRowSorter(true);
         
         //Titulo
         this.setTitle("Centro de Administracion Policial");
@@ -75,11 +76,11 @@ public class Principal extends javax.swing.JFrame {
         timer.start();
     }
 
-    private void cargaTablaPolicias() {
+    private void cargaTablaPolicias(String ordenacion) {
         String[] titulos = {"idPolicia", "Nombre", "Nº Placa", "Edad", "Departamento"};
         String[] fila = new String[6];
         List<Policia> listaPolicias;
-        listaPolicias = jd.MostrarPolicias("nombre");
+        listaPolicias = jd.MostrarPolicias(ordenacion);
         DefaultTableModel model = new DefaultTableModel(null, titulos);
         for (Policia p : listaPolicias) {
             fila[0] = p.getIdPolicia().toString();
@@ -90,7 +91,7 @@ public class Principal extends javax.swing.JFrame {
             fila[5] = p.getFoto();
             model.addRow(fila);
         }
-        this.jTable1.setModel(model);
+        this.PoliciaTabla.setModel(model);
     }
 
     /**
@@ -102,6 +103,7 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup2 = new javax.swing.ButtonGroup();
         btt_multas = new javax.swing.JButton();
         btt_policias = new javax.swing.JButton();
         btt_lista = new javax.swing.JButton();
@@ -109,14 +111,10 @@ public class Principal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
+        PoliciaTabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1200, 628));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -149,7 +147,7 @@ public class Principal extends javax.swing.JFrame {
 
         reloj.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        PoliciaTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -166,32 +164,12 @@ public class Principal extends javax.swing.JFrame {
                 "idPolicia", "Nombre", "Nº Placa", "Edad", "Departamento"
             }
         ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        PoliciaTabla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                PoliciaTablaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-
-        jRadioButton1.setText("Ordenar por dpt.");
-
-        jRadioButton2.setText("Ordenar por Nombre");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
-
-        jRadioButton3.setText("Ordenar por nº Placa");
-
-        jRadioButton4.setText("Ordenar por Edad");
-
-        jRadioButton5.setText("Ordenar por ID");
-        jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton5ActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setViewportView(PoliciaTabla);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -200,47 +178,28 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btt_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btt_multas, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btt_policias, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButton5)
-                                .addGap(103, 103, 103)
-                                .addComponent(jRadioButton3)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jRadioButton1)
-                        .addComponent(reloj, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jRadioButton2)
-                .addGap(84, 84, 84)
-                .addComponent(jRadioButton4)
-                .addGap(96, 96, 96))
+                            .addComponent(btt_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btt_multas, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btt_policias, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 481, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addComponent(reloj, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton3)
-                            .addComponent(jRadioButton5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton4)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btt_multas, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
@@ -251,7 +210,7 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btt_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addComponent(reloj, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -275,51 +234,42 @@ public class Principal extends javax.swing.JFrame {
         listado_ventana.setVisible(true);
     }//GEN-LAST:event_btt_listaActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void PoliciaTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PoliciaTablaMouseClicked
         // TODO add your handling code here:
-        int row = jTable1.getSelectedRow();
-        int col = jTable1.getColumnCount();
+        int row = PoliciaTabla.getSelectedRow();
+        int col = PoliciaTabla.getColumnCount();
         Integer idPolicia = 0, edad = 0;
         String nombre = "", numPlaca = "", departamento = "", foto = "";
 
-        idPolicia = Integer.parseInt((String) jTable1.getValueAt(row, 0));
-        nombre = (String) jTable1.getValueAt(row, 1);
-        numPlaca = (String) jTable1.getValueAt(row, 2);
-        edad = Integer.parseInt((String) jTable1.getValueAt(row, 3));
-        departamento = (String) jTable1.getValueAt(row, 4);
+        idPolicia = Integer.parseInt((String) PoliciaTabla.getValueAt(row, 0));
+        nombre = (String) PoliciaTabla.getValueAt(row, 1);
+        numPlaca = (String) PoliciaTabla.getValueAt(row, 2);
+        edad = Integer.parseInt((String) PoliciaTabla.getValueAt(row, 3));
+        departamento = (String) PoliciaTabla.getValueAt(row, 4);
         //foto = (String) jTable1.getValueAt(row, 5);
 
         pSelected = new Policia(idPolicia, nombre, numPlaca, edad, departamento, foto);
-
-
-    }//GEN-LAST:event_jTable1MouseClicked
+        
+        //Abrir ventana
+        PoliciasMantenimiento policias_ventana = new PoliciasMantenimiento(this, true, jd, pSelected);
+        policias_ventana.setVisible(true);
+        
+    }//GEN-LAST:event_PoliciaTablaMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
 
-    private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton5ActionPerformed
-
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable PoliciaTabla;
     private javax.swing.JButton btt_lista;
     private javax.swing.JButton btt_multas;
     private javax.swing.JButton btt_policias;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel reloj;
     // End of variables declaration//GEN-END:variables
 }
