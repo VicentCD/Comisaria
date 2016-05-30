@@ -13,12 +13,16 @@ import java.util.logging.Logger;
 
 public class ArchivosDAO {
 
-    public boolean cargarDatos(File archivo) {
-        boolean comprobacion = false;
+    public boolean cargarPolicias(File archivo) {
+        boolean comprobacion = false, existeID=false;
         JDBCDAO jd = new JDBCDAO();
         PreparedStatement ps;
         ResultSet rs;
         String linea, datos, nombre, numPlaca, departamento, foto;
+        String insert = "INSERT INTO "
+                        + "policia (idPolicia,nombre,numPlaca,edad,departamento,foto)"
+                        + "VALUES (?,?,?,?,?,?,?)";
+        String select= "SELECT idPolicia from policia";
         int idPolicia, edad;
         String[] trozos;
         try (FileReader fr = new FileReader(archivo)) {
@@ -35,18 +39,27 @@ public class ArchivosDAO {
                 edad = Integer.valueOf(trozos[3]);
                 departamento = trozos[4];
                 foto = trozos[5];
-                String sql = "INSERT INTO "
-                        + "policia (idPolicia,nombre,numPlaca,edad,departamento,foto)"
-                        + "VALUES (?,?,?,?,?,?,?)";
-                ps = jd.CrearConexion().prepareStatement(sql);
+                ps = jd.CrearConexion().prepareStatement(select);
+                rs = ps.executeQuery();
+                while (rs.next()){
+                  if (idPolicia == rs.getInt(idPolicia)){
+                      existeID = true;
+                  }
+                
+                }
 
+                if( existeID == false ){
+                
+                ps = jd.CrearConexion().prepareStatement(insert);
+                
                 ps.setInt(1, idPolicia);
                 ps.setString(2, nombre);
                 ps.setString(3, numPlaca);
                 ps.setInt(3, edad);
                 ps.setString(4, departamento);
                 ps.setString(5, foto);
-
+                }
+                comprobacion = true;
             }
 
         } catch (IOException ex) {
@@ -54,6 +67,7 @@ public class ArchivosDAO {
         } catch (SQLException ex) {
             Logger.getLogger(ArchivosDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return comprobacion;
     }
 }

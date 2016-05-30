@@ -1,13 +1,23 @@
 package vistas;
 
+import datos.ArchivosDAO;
 import datos.JDBCDAO;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import modelo.Policia;
 
@@ -20,7 +30,9 @@ public class Principal extends javax.swing.JFrame {
     int dia, mes, año, hora, minutos, segundos;
     String horaf = "";
     JDBCDAO jd = new JDBCDAO();
+    ArchivosDAO ad = new ArchivosDAO();
     Policia pSelected;
+    private Object jTextField1;
 
     public Principal() {
         initComponents();
@@ -28,7 +40,7 @@ public class Principal extends javax.swing.JFrame {
         //Cargar Tabla Policia
         cargaTablaPolicias("idPolicia");
         PoliciaTabla.setAutoCreateRowSorter(true);
-        
+
         //Titulo
         this.setTitle("Centro de Administracion Policial");
 
@@ -112,6 +124,7 @@ public class Principal extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         PoliciaTabla = new javax.swing.JTable();
+        BotonCargar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -170,6 +183,13 @@ public class Principal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(PoliciaTabla);
 
+        BotonCargar.setText("Cargar Policias");
+        BotonCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonCargarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,7 +201,8 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btt_multas, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btt_policias, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotonCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 491, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(reloj, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -202,8 +223,12 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btt_lista, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-                .addComponent(reloj, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(reloj, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(BotonCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35))))
         );
 
         pack();
@@ -241,19 +266,35 @@ public class Principal extends javax.swing.JFrame {
         //foto = (String) jTable1.getValueAt(row, 5);
 
         pSelected = new Policia(idPolicia, nombre, numPlaca, edad, departamento, foto);
-        
+
         //Abrir ventana
         PoliciasMantenimiento policias_ventana = new PoliciasMantenimiento(this, true, jd, pSelected);
         policias_ventana.setVisible(true);
-        
+
     }//GEN-LAST:event_PoliciaTablaMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
 
+    private void BotonCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCargarActionPerformed
+//         Cargar un archivo txt para introducirlo en la base de datos y posterior carga en la tabla de la pantalla principal
+        JFileChooser fc = new JFileChooser("C:\\Users\\daw1\\Documents\\Comisaria\\Proyecto_Comisaria");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto", "txt");
+        boolean funciona = false;
+        fc.setFileFilter(filter);
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+
+            funciona = ad.cargarPolicias(file);
+
+        }
+    }//GEN-LAST:event_BotonCargarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotonCargar;
     private javax.swing.JTable PoliciaTabla;
     private javax.swing.JButton btt_lista;
     private javax.swing.JButton btt_multas;
