@@ -3,7 +3,7 @@ package vistas;
 import datos.JDBCDAO;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -96,7 +96,10 @@ public class MultasIntroducir extends javax.swing.JDialog {
             }
         });
 
+        DescripcionField.setToolTipText("Descripción de Multa");
         DescripcionField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        DescripcionField.setDragEnabled(true);
+        DescripcionField.setName(""); // NOI18N
         DescripcionField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DescripcionFieldActionPerformed(evt);
@@ -121,7 +124,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        FechaChooser.setDateFormatString("yyyy-MM-dd HH:mm:ss");
+        FechaChooser.setDateFormatString("yyyy-MM-dd HH:mm:s");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -202,15 +205,16 @@ public class MultasIntroducir extends javax.swing.JDialog {
         // TODO add your handling code here:
         String descripcion, nifInfractor, prueba;
         java.util.Date fecha_java;
+        Timestamp fecha_sql;
         double importe;
         int idPolicia, idTipo;
         Policia p;
         MultaTipo mt;
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        
+
         descripcion = DescripcionField.getText();
 
         fecha_java = FechaChooser.getDate();
+        fecha_sql = new Timestamp(fecha_java.getTime());
 
         importe = Double.parseDouble(ImporteSpinner.getValue().toString());
 
@@ -225,10 +229,13 @@ public class MultasIntroducir extends javax.swing.JDialog {
         mt = (MultaTipo) TipoCombox.getSelectedItem();
         idTipo = mt.getId();
 
-        Multa m = new Multa(descripcion, fecha_java, importe, idPolicia, nifInfractor, idTipo);
+        Multa m = new Multa(descripcion, fecha_sql, importe, idPolicia, nifInfractor, idTipo);
 
         try {
             jd_multas.introducirMulta(m);
+            JOptionPane.showMessageDialog(this, FechaChooser.getDate());
+            JOptionPane.showMessageDialog(this, fecha_java);
+            JOptionPane.showMessageDialog(this, fecha_sql);
             JOptionPane.showMessageDialog(this, "La multa se ha introducido correctamente.");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "La multa no se ha introducido. Error: " + ex);

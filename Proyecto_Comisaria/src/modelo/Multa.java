@@ -1,17 +1,17 @@
 package modelo;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Multa {
 
     private String descripcion;
-    private Date fecha;
+    private Timestamp fecha;
     private double importe;
     private int idPolicia;
     private String nifInfractor;
     private int idTipo;
 
-    public Multa(String descripcion, Date fecha, double importe, int idPolicia, String nifInfractor, int idTipo) {
+    public Multa(String descripcion, Timestamp fecha, double importe, int idPolicia, String nifInfractor, int idTipo) {
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.importe = importe;
@@ -28,13 +28,11 @@ public class Multa {
         this.descripcion = descripcion;
     }
 
-    public Date getFecha() {
-//        java.util.Date utilDate = new java.util.Date();
-//        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+    public Timestamp getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(Timestamp fecha) {
         this.fecha = fecha;
     }
 

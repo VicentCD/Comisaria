@@ -46,7 +46,7 @@ public class JDBCDAO {
         ps.setInt(4, m.getIdPolicia());
         ps.setString(5, m.getNifInfractor());
         ps.setInt(6, m.getIdTipo());
-        
+
         filasafectadas = ps.executeUpdate();
         return filasafectadas;
     }
