@@ -207,6 +207,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
         MultaTipo mt;
 
         try {
+            //Recogida de datos
             descripcion = DescripcionField.getText();
             if (DescripcionField.getText().isEmpty()) {
                 descripcion = null;
@@ -227,18 +228,20 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
             mt = (MultaTipo) TipoCombox.getSelectedItem();
             idTipo = mt.getId();
-
+            
+            //Creación de objetos e insertar datos
             Multa m = new Multa(descripcion, fecha_sql, importe, idPolicia, nifInfractor, idTipo);
 
             jd_multas.introducirMulta(m);
             JOptionPane.showMessageDialog(this, "La Multa ha sido insertada Correctamente.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-
+            
             idMulta = Integer.parseInt(multaID.getText()) + 1;
             multaID.setText(Integer.toString(idMulta));
         } catch (SQLException | NullPointerException ex) {
             JOptionPane.showMessageDialog(this, "No se ha podido insertar la multa correctamente.\nError: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
-
+        
+        //Comprobación de campos
         if (DescripcionField.getText().isEmpty()) {
             DescripcionField.setBorder(new LineBorder(java.awt.Color.RED));
         } else {

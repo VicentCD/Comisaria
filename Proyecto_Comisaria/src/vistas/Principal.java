@@ -3,12 +3,14 @@ package vistas;
 import datos.ArchivosDAO;
 import datos.JDBCDAO;
 import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -238,7 +240,6 @@ public class Principal extends javax.swing.JFrame {
     private void btt_policiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btt_policiasActionPerformed
         PoliciasMantenimiento policias_ventana = new PoliciasMantenimiento(this, true, jd, pSelected);
         policias_ventana.setVisible(true);
-
     }//GEN-LAST:event_btt_policiasActionPerformed
 
     private void btt_listaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btt_listaActionPerformed
@@ -283,7 +284,6 @@ public class Principal extends javax.swing.JFrame {
             File file = fc.getSelectedFile();
 
             funciona = ad.cargarPolicias(file);
-
         }
     }//GEN-LAST:event_BotonCargarPoliciasActionPerformed
 
