@@ -132,6 +132,10 @@ public class JDBCDAO {
         try {
             PreparedStatement ps = conexion.prepareStatement(borrar);
             ps.setInt(1, idPolicia);
+            
+            
+            
+            
             ps.executeUpdate();
             borrado = true;
         } catch (SQLException ex) {
