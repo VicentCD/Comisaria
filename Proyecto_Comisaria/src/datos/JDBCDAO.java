@@ -125,4 +125,22 @@ public class JDBCDAO {
 
         return listaPolicias;
     }
+    
+    public boolean BorrarPolicia(int idPolicia){
+        boolean borrado = false;
+        String borrar ="DELETE FROM policia where idPolicia = ?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(borrar);
+            ps.setInt(1, idPolicia);
+            ps.executeUpdate();
+            borrado = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        return borrado;
+    }
+    
 }
