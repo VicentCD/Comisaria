@@ -1,14 +1,13 @@
 package vistas;
 
 import datos.JDBCDAO;
-import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.paint.Color;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import modelo.Multa;
 import modelo.MultaTipo;
 import modelo.Policia;
@@ -66,7 +65,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         InsertarMulta = new javax.swing.JButton();
-        DescripcionField = new javax.swing.JTextField();
         ImporteSpinner = new javax.swing.JSpinner();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -76,6 +74,8 @@ public class MultasIntroducir extends javax.swing.JDialog {
         multaID = new javax.swing.JLabel();
         nifFormatted = new javax.swing.JFormattedTextField();
         FechaChooser = new com.toedter.calendar.JDateChooser();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        DescripcionField = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -93,16 +93,6 @@ public class MultasIntroducir extends javax.swing.JDialog {
         InsertarMulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InsertarMultaActionPerformed(evt);
-            }
-        });
-
-        DescripcionField.setToolTipText("Descripción de Multa");
-        DescripcionField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        DescripcionField.setDragEnabled(true);
-        DescripcionField.setName(""); // NOI18N
-        DescripcionField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DescripcionFieldActionPerformed(evt);
             }
         });
 
@@ -124,7 +114,11 @@ public class MultasIntroducir extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-        FechaChooser.setDateFormatString("yyyy-MM-dd HH:mm:s");
+        FechaChooser.setDateFormatString("yyyy-MM-dd HH:mm:ss");
+
+        DescripcionField.setColumns(20);
+        DescripcionField.setRows(5);
+        jScrollPane2.setViewportView(DescripcionField);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,10 +142,10 @@ public class MultasIntroducir extends javax.swing.JDialog {
                                 .addComponent(InsertarMulta))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(DescripcionField, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(multaID, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TipoCombox, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                                    .addComponent(TipoCombox, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel1))
@@ -174,35 +168,35 @@ public class MultasIntroducir extends javax.swing.JDialog {
                         .addComponent(multaID, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4)
                     .addComponent(FechaChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1)
-                            .addComponent(DescripcionField, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TipoCombox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addGap(52, 52, 52)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(nifFormatted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(ImporteSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(InsertarMulta)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67))
+                            .addComponent(jLabel7))))
+                .addGap(52, 52, 52)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(nifFormatted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(ImporteSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(InsertarMulta))
+                .addGap(73, 73, 73))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void InsertarMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarMultaActionPerformed
-        // TODO add your handling code here:
+        // Variables
         String descripcion, nifInfractor, prueba;
         java.util.Date fecha_java;
         Timestamp fecha_sql;
@@ -212,6 +206,9 @@ public class MultasIntroducir extends javax.swing.JDialog {
         MultaTipo mt;
 
         descripcion = DescripcionField.getText();
+        if (DescripcionField.getText().isEmpty()) {
+            descripcion = null;
+        }
 
         fecha_java = FechaChooser.getDate();
         fecha_sql = new Timestamp(fecha_java.getTime());
@@ -233,19 +230,20 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
         try {
             jd_multas.introducirMulta(m);
-            JOptionPane.showMessageDialog(this, FechaChooser.getDate());
-            JOptionPane.showMessageDialog(this, fecha_java);
-            JOptionPane.showMessageDialog(this, fecha_sql);
             JOptionPane.showMessageDialog(this, "La multa se ha introducido correctamente.");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "La multa no se ha introducido. Error: " + ex);
         }
+        
+        if (DescripcionField.getText().isEmpty()) {
+            DescripcionField.setBackground(java.awt.Color.red);
+        }
+        
+        if (PoliciaList.getSelectedValue().toString().equalsIgnoreCase(null)) {
+            PoliciaList.setBackground(java.awt.Color.red);
+        }
 
     }//GEN-LAST:event_InsertarMultaActionPerformed
-
-    private void DescripcionFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescripcionFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DescripcionFieldActionPerformed
 
     private void TipoComboxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TipoComboxItemStateChanged
 
@@ -262,7 +260,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField DescripcionField;
+    private javax.swing.JTextArea DescripcionField;
     private com.toedter.calendar.JDateChooser FechaChooser;
     private javax.swing.JSpinner ImporteSpinner;
     private javax.swing.JButton InsertarMulta;
@@ -276,6 +274,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel multaID;
     private javax.swing.JFormattedTextField nifFormatted;
     // End of variables declaration//GEN-END:variables

@@ -40,8 +40,7 @@ public class JDBCDAO {
         int filasafectadas;
         ps = conexion.prepareStatement("INSERT INTO multas VALUES (null,?,?,?,?,?,?)");
         ps.setString(1, m.getDescripcion());
-        java.sql.Date fechaSql = new java.sql.Date(m.getFecha().getTime());
-        ps.setDate(2, fechaSql);
+        ps.setTimestamp(2, m.getFecha());
         ps.setDouble(3, m.getImporte());
         ps.setInt(4, m.getIdPolicia());
         ps.setString(5, m.getNifInfractor());
