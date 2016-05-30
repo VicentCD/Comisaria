@@ -198,14 +198,14 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
     private void InsertarMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarMultaActionPerformed
         // Variables
-        String descripcion, nifInfractor, prueba;
+        String descripcion, nifInfractor;
         java.util.Date fecha_java;
         Timestamp fecha_sql;
         double importe;
         int idPolicia, idTipo;
         Policia p;
         MultaTipo mt;
-        
+
         try {
             descripcion = DescripcionField.getText();
             if (DescripcionField.getText().isEmpty()) {
@@ -231,9 +231,9 @@ public class MultasIntroducir extends javax.swing.JDialog {
             Multa m = new Multa(descripcion, fecha_sql, importe, idPolicia, nifInfractor, idTipo);
 
             jd_multas.introducirMulta(m);
-            JOptionPane.showMessageDialog(this, "La multa se ha introducido correctamente.");
+            JOptionPane.showMessageDialog(this, "La Multa ha sido insertada Correctamente.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException | NullPointerException ex) {
-            JOptionPane.showMessageDialog(this, "La multa no se ha introducido. Error: " + ex);
+            JOptionPane.showMessageDialog(this, "No se ha podido insertar la multa correctamente.\nError: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         if (DescripcionField.getText().isEmpty()) {
@@ -246,6 +246,12 @@ public class MultasIntroducir extends javax.swing.JDialog {
             PoliciaList.setBorder(new LineBorder(java.awt.Color.RED));
         } else {
             PoliciaList.setBorder(null);
+        }
+
+        if (FechaChooser.getDate() == null) {
+            FechaChooser.setBorder(new LineBorder(java.awt.Color.RED));
+        } else {
+            FechaChooser.setBorder(null);
         }
 
     }//GEN-LAST:event_InsertarMultaActionPerformed
