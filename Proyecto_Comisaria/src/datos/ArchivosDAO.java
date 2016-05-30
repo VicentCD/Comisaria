@@ -14,8 +14,9 @@ import java.util.logging.Logger;
 
 public class ArchivosDAO {
 
-    public boolean cargarPolicias(File archivo) {
-        boolean comprobacion = false, existeID = false;
+    public String cargarPolicias(File archivo) {
+        boolean existeID = false;
+        int contador = 0;
         JDBCDAO jd = new JDBCDAO();
         PreparedStatement ps;
         ResultSet rs;
@@ -24,6 +25,7 @@ public class ArchivosDAO {
                 + "policia (idPolicia, nombre, numPlaca, edad, departamento, foto)"
                 + "VALUES (?,?,?,?,?,?)";
         String select = "SELECT idPolicia from policia";
+        String text = "", nombres = "";
         Integer idPolicia = 0, edad = 0;
         String[] trozos;
         try (FileReader fr = new FileReader(archivo)) {
@@ -45,6 +47,8 @@ public class ArchivosDAO {
                 while (rs.next()) {
                     if (idPolicia == rs.getInt("idPolicia")) {
                         existeID = true;
+                        contador++;
+                        nombres = nombres + " " + nombre;
                     }
                 }
                 if (existeID != true) {
@@ -59,13 +63,24 @@ public class ArchivosDAO {
                     ps.setString(6, foto);
                     ps.executeUpdate();
                 }
-                comprobacion = true;
+
             }
 
         } catch (IOException | SQLException ex) {
             Logger.getLogger(ArchivosDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return comprobacion;
+        if (contador == 0) {
+            text = "No se han insertado policías";
+        } else if (contador == 1) {
+            text = "El policía " + nombres + " ya estaba en la base de datos";
+        } else {
+            text = "Los policías " + nombres + " ya estaban insertados"
+                    + "\n"+"No se han insertado "+ contador+ " policías";
+        }
+        
+        
+
+        return text;
     }
 }

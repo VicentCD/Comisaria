@@ -45,9 +45,7 @@
                   <Component id="jScrollPane1" alignment="1" min="-2" pref="536" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="BotonBorrar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="BotonRefresh" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                       <Component id="BotonCargarPolicias" min="-2" pref="131" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -68,7 +66,6 @@
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="BotonCargarPolicias" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="BotonRefresh" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="BotonBorrar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
@@ -166,14 +163,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonCargarPoliciasActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="BotonRefresh">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Refresh"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonRefreshActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BotonBorrar">

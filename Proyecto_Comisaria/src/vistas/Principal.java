@@ -118,7 +118,6 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         PoliciaTabla = new javax.swing.JTable();
         BotonCargarPolicias = new javax.swing.JButton();
-        BotonRefresh = new javax.swing.JButton();
         BotonBorrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -185,13 +184,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        BotonRefresh.setText("Refresh");
-        BotonRefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonRefreshActionPerformed(evt);
-            }
-        });
-
         BotonBorrar.setText("Borrar Policia");
         BotonBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,9 +209,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(BotonBorrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BotonRefresh)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(87, 87, 87)
                         .addComponent(BotonCargarPolicias, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
@@ -235,7 +225,6 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BotonCargarPolicias)
-                            .addComponent(BotonRefresh)
                             .addComponent(BotonBorrar))
                         .addGap(31, 31, 31)
                         .addComponent(btt_policias, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,20 +290,19 @@ public class Principal extends javax.swing.JFrame {
         JFileChooser fc = new JFileChooser("C:\\Users\\Gerard\\Documents\\NetBeansProjects\\Comisaria\\Proyecto_Comisaria");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto", "txt");
         boolean funciona = false;
+        String mensaje ="";
         fc.setFileFilter(filter);
         int returnVal = fc.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
 
-            funciona = ad.cargarPolicias(file);
+            mensaje = ad.cargarPolicias(file);
         }
-    }//GEN-LAST:event_BotonCargarPoliciasActionPerformed
-
-    private void BotonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRefreshActionPerformed
-        // TODO add your handling code here:
+        int dialogButton= JOptionPane.OK_OPTION;
+        JOptionPane.showConfirmDialog(null, mensaje, "Warning", dialogButton);
         cargaTablaPolicias("idPolicia");
         PoliciaTabla.setAutoCreateRowSorter(true);
-    }//GEN-LAST:event_BotonRefreshActionPerformed
+    }//GEN-LAST:event_BotonCargarPoliciasActionPerformed
 
     private void BotonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBorrarActionPerformed
         // TODO add your handling code here:
@@ -325,14 +313,14 @@ public class Principal extends javax.swing.JFrame {
         if (dialogButton == dialogResult) {
             jd.BorrarPolicia(pSelected.getIdPolicia());
         }
-        
+        cargaTablaPolicias("idPolicia");
+        PoliciaTabla.setAutoCreateRowSorter(true);
     }//GEN-LAST:event_BotonBorrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonBorrar;
     private javax.swing.JButton BotonCargarPolicias;
-    private javax.swing.JButton BotonRefresh;
     private javax.swing.JTable PoliciaTabla;
     private javax.swing.JButton btt_lista;
     private javax.swing.JButton btt_multas;
