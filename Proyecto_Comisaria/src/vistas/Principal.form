@@ -33,17 +33,20 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btt_lista" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
                   <Component id="jSeparator2" alignment="0" min="-2" pref="163" max="-2" attributes="0"/>
-                  <Component id="btt_multas" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
-                  <Component id="btt_policias" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
                   <Component id="jSeparator1" alignment="0" min="-2" pref="163" max="-2" attributes="0"/>
-                  <Component id="BotonCargar" min="-2" pref="115" max="-2" attributes="0"/>
+                  <Component id="btt_policias" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                  <Component id="btt_lista" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                  <Component id="btt_multas" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="491" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="reloj" alignment="1" min="-2" pref="127" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" alignment="1" min="-2" pref="536" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="BotonCargarPolicias" min="-2" pref="131" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
       </Group>
@@ -56,22 +59,24 @@
                   <Component id="btt_multas" min="-2" pref="91" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="122" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <Component id="BotonCargarPolicias" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Component id="btt_policias" min="-2" pref="91" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btt_lista" min="-2" pref="91" max="-2" attributes="0"/>
-              <EmptySpace pref="90" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="reloj" alignment="1" min="-2" pref="65" max="-2" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="BotonCargar" min="-2" pref="77" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <EmptySpace pref="115" max="32767" attributes="0"/>
+              <Component id="reloj" min="-2" pref="65" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -146,12 +151,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="BotonCargar">
+    <Component class="javax.swing.JButton" name="BotonCargarPolicias">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cargar Policias"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonCargarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonCargarPoliciasActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
