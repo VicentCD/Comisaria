@@ -30,7 +30,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
         DefaultListModel modelo = new DefaultListModel();
 
         //Carga de Datos
-        int id = Integer.parseInt(jdbcdao.recogerUltimo("select * from multas order by id", "id")) + 1;
+        int id = Integer.parseInt(jd_multas.recogerUltimo("select * from multas order by id", "id")) + 1;
         multaID.setText(Integer.toString(id));
 
         try {
@@ -202,7 +202,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
         java.util.Date fecha_java;
         Timestamp fecha_sql;
         double importe;
-        int idPolicia, idTipo;
+        int idMulta, idPolicia, idTipo;
         Policia p;
         MultaTipo mt;
 
@@ -232,6 +232,9 @@ public class MultasIntroducir extends javax.swing.JDialog {
 
             jd_multas.introducirMulta(m);
             JOptionPane.showMessageDialog(this, "La Multa ha sido insertada Correctamente.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+
+            idMulta = Integer.parseInt(multaID.getText()) + 1;
+            multaID.setText(Integer.toString(idMulta));
         } catch (SQLException | NullPointerException ex) {
             JOptionPane.showMessageDialog(this, "No se ha podido insertar la multa correctamente.\nError: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
