@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.paint.Color;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 import modelo.Multa;
 import modelo.MultaTipo;
 import modelo.Policia;
@@ -117,7 +117,8 @@ public class MultasIntroducir extends javax.swing.JDialog {
         FechaChooser.setDateFormatString("yyyy-MM-dd HH:mm:ss");
 
         DescripcionField.setColumns(20);
-        DescripcionField.setRows(5);
+        DescripcionField.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        DescripcionField.setRows(4);
         jScrollPane2.setViewportView(DescripcionField);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -204,43 +205,47 @@ public class MultasIntroducir extends javax.swing.JDialog {
         int idPolicia, idTipo;
         Policia p;
         MultaTipo mt;
-
-        descripcion = DescripcionField.getText();
-        if (DescripcionField.getText().isEmpty()) {
-            descripcion = null;
-        }
-
-        fecha_java = FechaChooser.getDate();
-        fecha_sql = new Timestamp(fecha_java.getTime());
-
-        importe = Double.parseDouble(ImporteSpinner.getValue().toString());
-
-        p = (Policia) PoliciaList.getSelectedValue();
-        idPolicia = p.getIdPolicia();
-
-        nifInfractor = nifFormatted.getText();
-        if (nifInfractor.equalsIgnoreCase("        - ")) {
-            nifInfractor = null;
-        }
-
-        mt = (MultaTipo) TipoCombox.getSelectedItem();
-        idTipo = mt.getId();
-
-        Multa m = new Multa(descripcion, fecha_sql, importe, idPolicia, nifInfractor, idTipo);
-
+        
         try {
+            descripcion = DescripcionField.getText();
+            if (DescripcionField.getText().isEmpty()) {
+                descripcion = null;
+            }
+
+            fecha_java = FechaChooser.getDate();
+            fecha_sql = new Timestamp(fecha_java.getTime());
+
+            importe = Double.parseDouble(ImporteSpinner.getValue().toString());
+
+            p = (Policia) PoliciaList.getSelectedValue();
+            idPolicia = p.getIdPolicia();
+
+            nifInfractor = nifFormatted.getText();
+            if (nifInfractor.equalsIgnoreCase("        - ")) {
+                nifInfractor = null;
+            }
+
+            mt = (MultaTipo) TipoCombox.getSelectedItem();
+            idTipo = mt.getId();
+
+            Multa m = new Multa(descripcion, fecha_sql, importe, idPolicia, nifInfractor, idTipo);
+
             jd_multas.introducirMulta(m);
             JOptionPane.showMessageDialog(this, "La multa se ha introducido correctamente.");
-        } catch (SQLException ex) {
+        } catch (SQLException | NullPointerException ex) {
             JOptionPane.showMessageDialog(this, "La multa no se ha introducido. Error: " + ex);
         }
-        
+
         if (DescripcionField.getText().isEmpty()) {
-            DescripcionField.setBackground(java.awt.Color.red);
+            DescripcionField.setBorder(new LineBorder(java.awt.Color.RED));
+        } else {
+            DescripcionField.setBorder(null);
         }
-        
-        if (PoliciaList.getSelectedValue().toString().equalsIgnoreCase(null)) {
-            PoliciaList.setBackground(java.awt.Color.red);
+
+        if (PoliciaList.getSelectedValue() == null) {
+            PoliciaList.setBorder(new LineBorder(java.awt.Color.RED));
+        } else {
+            PoliciaList.setBorder(null);
         }
 
     }//GEN-LAST:event_InsertarMultaActionPerformed
