@@ -24,7 +24,6 @@ public class ArchivosDAO {
         String insert = "INSERT INTO "
                 + "policia (idPolicia, nombre, numPlaca, edad, departamento, foto)"
                 + "VALUES (?,?,?,?,?,?)";
-        String select = "SELECT idPolicia from policia";
         String text = "", nombres = "";
         Integer idPolicia = 0, edad = 0;
         String[] trozos;
@@ -40,19 +39,7 @@ public class ArchivosDAO {
                 departamento = trozos[4];
                 foto = trozos[5];
 
-                ps = jd.CrearConexion().prepareStatement(select);
-                rs = ps.executeQuery();
-                //Comprobar que no existe el policia mirando todas las idPolicia 
-                existeID = false;
-                while (rs.next()) {
-                    if (idPolicia == rs.getInt("idPolicia")) {
-                        existeID = true;
-                        contador++;
-                        nombres = nombres + " " + nombre;
-                    }
-                }
-                if (existeID != true) {
-
+                try {
                     ps = jd.CrearConexion().prepareStatement(insert);
 
                     ps.setInt(1, idPolicia);
@@ -62,11 +49,15 @@ public class ArchivosDAO {
                     ps.setString(5, departamento);
                     ps.setString(6, foto);
                     ps.executeUpdate();
+
+                } catch (SQLException ex) {
+                    if (ex.getErrorCode() == 1062) {
+                        contador++;
+                        nombres = nombres + " " + nombre;
+                    }
                 }
-
             }
-
-        } catch (IOException | SQLException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(ArchivosDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -76,10 +67,8 @@ public class ArchivosDAO {
             text = "El policía " + nombres + " ya estaba en la base de datos";
         } else {
             text = "Los policías " + nombres + " ya estaban insertados"
-                    + "\n"+"No se han insertado "+ contador+ " policías";
+                    + "\n" + "No se han insertado " + contador + " policías";
         }
-        
-        
 
         return text;
     }
