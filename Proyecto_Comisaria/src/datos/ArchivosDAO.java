@@ -20,12 +20,12 @@ public class ArchivosDAO {
         JDBCDAO jd = new JDBCDAO();
         PreparedStatement ps;
         ResultSet rs;
-        String datos = "", nombre = "", numPlaca = "", departamento = "", foto = "";
+        String datos, nombre, numPlaca, departamento, foto;
         String insert = "INSERT INTO "
                 + "policia (idPolicia, nombre, numPlaca, edad, departamento, foto)"
                 + "VALUES (?,?,?,?,?,?)";
-        String text = "", nombres = "";
-        Integer idPolicia = 0, edad = 0;
+        String text, nombres="";
+        Integer idPolicia, edad;
         String[] trozos;
         try (FileReader fr = new FileReader(archivo)) {
             BufferedReader br = new BufferedReader(fr);
@@ -41,7 +41,6 @@ public class ArchivosDAO {
 
                 try {
                     ps = jd.CrearConexion().prepareStatement(insert);
-
                     ps.setInt(1, idPolicia);
                     ps.setString(2, nombre);
                     ps.setString(3, numPlaca);

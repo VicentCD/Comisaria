@@ -295,7 +295,6 @@ public class Principal extends javax.swing.JFrame {
         int returnVal = fc.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
-
             mensaje = ad.cargarPolicias(file);
         }
         int dialogButton= JOptionPane.OK_OPTION;
