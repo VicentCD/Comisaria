@@ -116,7 +116,8 @@ public class JDBCDAO {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getErrorCode());
+//            Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return listaPolicias;
@@ -154,5 +155,16 @@ public class JDBCDAO {
         ps.executeUpdate();
 
     }
-
+    
+    public boolean ActualizarPolicias(Policia p){
+        PreparedStatement ps;
+        String update = "UPDATE "
+                + "policia SET idPolicia=?, nombre=?, numPlaca=?, edad=?, departamento=?, foto=?"
+                + "WHERE idPolicia = " + p.getIdPolicia().toString();
+        ps = conexion.prepareStatement(update);
+        ps.setInt(1, p.getIdPolicia());
+        
+                
+    }
+//UPDATE table SET column1=value WHERE 
 }
