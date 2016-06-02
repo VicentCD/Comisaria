@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 public class ArchivosDAO {
     
     public String cargarPolicias(File archivo) {
-        boolean existeID = false;
         int contador = 0;
         JDBCDAO jd = new JDBCDAO();
         String datos, nombre, numPlaca, departamento, foto;

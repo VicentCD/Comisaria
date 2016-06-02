@@ -85,7 +85,7 @@ public class Principal extends javax.swing.JFrame {
         String[] titulos = {"idPolicia", "Nombre", "Nº Placa", "Edad", "Departamento"};
         String[] fila = new String[6];
         List<Policia> listaPolicias;
-        listaPolicias = jd.MostrarPolicias(ordenacion);
+        listaPolicias = jd.MostrarPolicias("idPolicia");
         DefaultTableModel model = new DefaultTableModel(null, titulos);
         for (Policia p : listaPolicias) {
             fila[0] = p.getIdPolicia().toString();
@@ -289,7 +289,6 @@ public class Principal extends javax.swing.JFrame {
 //         Cargar un archivo txt para introducirlo en la base de datos y posterior carga en la tabla de la pantalla principal
         JFileChooser fc = new JFileChooser("C:\\Users\\Gerard\\Documents\\NetBeansProjects\\Comisaria\\Proyecto_Comisaria");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto", "txt");
-        boolean funciona = false;
         String mensaje = "";
         fc.setFileFilter(filter);
         int returnVal = fc.showOpenDialog(this);
@@ -308,9 +307,8 @@ public class Principal extends javax.swing.JFrame {
     private void BotonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBorrarActionPerformed
         // TODO add your handling code here:
         int dialogButton = JOptionPane.YES_NO_OPTION;
-        int dialogResult = JOptionPane.showConfirmDialog(null, "¿Seguro que quieres borrarlo?", "Warning", dialogButton);
-
-        System.out.println("");
+        int dialogResult = JOptionPane.showConfirmDialog(this, "¿Seguro que quieres borrarlo?", "Warning", dialogButton);
+        
         if (dialogButton == dialogResult) {
             jd.BorrarPolicia(pSelected.getIdPolicia());
         }

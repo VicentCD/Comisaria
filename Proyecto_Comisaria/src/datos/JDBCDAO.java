@@ -122,7 +122,7 @@ public class JDBCDAO {
         return listaPolicias;
     }
 
-    public boolean BorrarPolicia(int idPolicia) {
+    public boolean BorrarPolicia(Integer idPolicia) {
         boolean borrado = false;
         String borrar = "DELETE FROM policia where idPolicia = ?";
         try {
@@ -130,6 +130,7 @@ public class JDBCDAO {
             ps.setInt(1, idPolicia);
             ps.executeUpdate();
             borrado = true;
+            
         } catch (SQLException ex) {
             Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -142,7 +143,7 @@ public class JDBCDAO {
         String insert = "INSERT INTO "
                 + "policia (idPolicia, nombre, numPlaca, edad, departamento, foto)"
                 + "VALUES (?,?,?,?,?,?)";
-        
+
         ps = conexion.prepareStatement(insert);
         ps.setInt(1, idPolicia);
         ps.setString(2, nombre);

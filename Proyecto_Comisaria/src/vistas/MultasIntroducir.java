@@ -238,7 +238,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
             idMulta = Integer.parseInt(multaID.getText()) + 1;
             multaID.setText(Integer.toString(idMulta));
         } catch (SQLException | NullPointerException ex) {
-            JOptionPane.showMessageDialog(this, "No se ha podido insertar la multa correctamente.\nError: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se ha podido insertar la multa correctamente.\nHay campos vacios o incorrectos.\nError: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         //Comprobación de campos
