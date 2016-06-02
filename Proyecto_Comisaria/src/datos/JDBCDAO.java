@@ -46,16 +46,6 @@ public class JDBCDAO {
         return filasafectadas;
     }
 
-    public boolean actualizacionPolicia(Policia p) throws SQLException {
-        boolean comprobacion = false;
-        String update = "UPDATE table SET column1=value WHERE ";
-        PreparedStatement ps;
-        ResultSet rs;
-        ps = conexion.prepareStatement(update);
-
-        return comprobacion;
-    }
-
     public String recogerUltimo(String sql, String campo) {
         String ultimo = "";
         PreparedStatement ps;
@@ -156,15 +146,17 @@ public class JDBCDAO {
 
     }
     
-    public boolean ActualizarPolicias(Policia p){
+    public void ActualizarPolicias(Policia p) throws SQLException{
         PreparedStatement ps;
-        String update = "UPDATE "
-                + "policia SET idPolicia=?, nombre=?, numPlaca=?, edad=?, departamento=?, foto=?"
-                + "WHERE idPolicia = " + p.getIdPolicia().toString();
+        String update = "UPDATE policia "
+                + "SET nombre=?, numplaca=?, edad=?, departamento=?, foto=?"
+                + "WHERE idpolicia = " + p.getIdPolicia().toString();
         ps = conexion.prepareStatement(update);
-        ps.setInt(1, p.getIdPolicia());
-        
-                
+        ps.setString(1, p.getNombre());
+        ps.setString(2, p.getNumPlaca());
+        ps.setInt(3, p.getEdad());
+        ps.setString(4, p.getDepartamento());
+        ps.setString(5, p.getFoto());
+        ps.executeUpdate();
     }
-//UPDATE table SET column1=value WHERE 
 }
