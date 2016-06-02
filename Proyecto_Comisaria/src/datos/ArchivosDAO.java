@@ -13,18 +13,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ArchivosDAO {
-
+    
     public String cargarPolicias(File archivo) {
         boolean existeID = false;
         int contador = 0;
         JDBCDAO jd = new JDBCDAO();
-        PreparedStatement ps;
-        ResultSet rs;
         String datos, nombre, numPlaca, departamento, foto;
-        String insert = "INSERT INTO "
-                + "policia (idPolicia, nombre, numPlaca, edad, departamento, foto)"
-                + "VALUES (?,?,?,?,?,?)";
-        String text, nombres="";
+        String text, nombres = "";
         Integer idPolicia, edad;
         String[] trozos;
         try (FileReader fr = new FileReader(archivo)) {
@@ -38,17 +33,9 @@ public class ArchivosDAO {
                 edad = Integer.valueOf(trozos[3]);
                 departamento = trozos[4];
                 foto = trozos[5];
-
+                
                 try {
-                    ps = jd.CrearConexion().prepareStatement(insert);
-                    ps.setInt(1, idPolicia);
-                    ps.setString(2, nombre);
-                    ps.setString(3, numPlaca);
-                    ps.setInt(4, edad);
-                    ps.setString(5, departamento);
-                    ps.setString(6, foto);
-                    ps.executeUpdate();
-
+                    jd.InsertarPolicias(idPolicia, nombre, numPlaca, edad, departamento, foto);
                 } catch (SQLException ex) {
                     if (ex.getErrorCode() == 1062) {
                         contador++;
@@ -59,7 +46,7 @@ public class ArchivosDAO {
         } catch (IOException ex) {
             Logger.getLogger(ArchivosDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         if (contador == 0) {
             text = "No se han insertado policías";
         } else if (contador == 1) {
@@ -68,7 +55,7 @@ public class ArchivosDAO {
             text = "Los policías " + nombres + " ya estaban insertados"
                     + "\n" + "No se han insertado " + contador + " policías";
         }
-
+        
         return text;
     }
 }

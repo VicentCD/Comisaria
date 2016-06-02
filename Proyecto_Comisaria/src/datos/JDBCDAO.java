@@ -6,14 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import modelo.*;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class JDBCDAO {
 
@@ -125,10 +121,10 @@ public class JDBCDAO {
 
         return listaPolicias;
     }
-    
-    public boolean BorrarPolicia(int idPolicia){
+
+    public boolean BorrarPolicia(int idPolicia) {
         boolean borrado = false;
-        String borrar ="DELETE FROM policia where idPolicia = ?";
+        String borrar = "DELETE FROM policia where idPolicia = ?";
         try {
             PreparedStatement ps = conexion.prepareStatement(borrar);
             ps.setInt(1, idPolicia);
@@ -137,10 +133,25 @@ public class JDBCDAO {
         } catch (SQLException ex) {
             Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
+
         return borrado;
     }
-    
+
+    public void InsertarPolicias(Integer idPolicia, String nombre, String numPlaca, Integer edad, String departamento, String foto) throws SQLException {
+        PreparedStatement ps;
+        String insert = "INSERT INTO "
+                + "policia (idPolicia, nombre, numPlaca, edad, departamento, foto)"
+                + "VALUES (?,?,?,?,?,?)";
+        
+        ps = conexion.prepareStatement(insert);
+        ps.setInt(1, idPolicia);
+        ps.setString(2, nombre);
+        ps.setString(3, numPlaca);
+        ps.setInt(4, edad);
+        ps.setString(5, departamento);
+        ps.setString(6, foto);
+        ps.executeUpdate();
+
+    }
+
 }

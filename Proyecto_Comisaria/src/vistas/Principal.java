@@ -290,17 +290,19 @@ public class Principal extends javax.swing.JFrame {
         JFileChooser fc = new JFileChooser("C:\\Users\\Gerard\\Documents\\NetBeansProjects\\Comisaria\\Proyecto_Comisaria");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto", "txt");
         boolean funciona = false;
-        String mensaje ="";
+        String mensaje = "";
         fc.setFileFilter(filter);
         int returnVal = fc.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
             mensaje = ad.cargarPolicias(file);
         }
-        int dialogButton= JOptionPane.OK_OPTION;
-        JOptionPane.showConfirmDialog(null, mensaje, "Warning", dialogButton);
+        int dialogButton = JOptionPane.OK_OPTION;
+        JOptionPane.showMessageDialog(this, mensaje, "Mensaje:", JOptionPane.INFORMATION_MESSAGE);
         cargaTablaPolicias("idPolicia");
         PoliciaTabla.setAutoCreateRowSorter(true);
+        
+        
     }//GEN-LAST:event_BotonCargarPoliciasActionPerformed
 
     private void BotonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBorrarActionPerformed
