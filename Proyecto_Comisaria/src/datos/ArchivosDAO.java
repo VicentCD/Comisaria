@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class ArchivosDAO {
     
     public String cargarPolicias(File archivo) {
-        int contador = 0;
+        int contador_no = 0,contador = 0;
         JDBCDAO jd = new JDBCDAO();
         String datos, nombre, numPlaca, departamento, foto;
         String text, nombres = "";
@@ -35,9 +35,10 @@ public class ArchivosDAO {
                 
                 try {
                     jd.InsertarPolicias(idPolicia, nombre, numPlaca, edad, departamento, foto);
+                    contador++;
                 } catch (SQLException ex) {
                     if (ex.getErrorCode() == 1062) {
-                        contador++;
+                        contador_no++;
                         nombres = nombres + " " + nombre;
                     }
                 }
@@ -46,13 +47,13 @@ public class ArchivosDAO {
             Logger.getLogger(ArchivosDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if (contador == 0) {
-            text = "No se han insertado policías";
-        } else if (contador == 1) {
-            text = "El policía " + nombres + " ya estaba en la base de datos";
+        if (contador_no == 0) {
+            text = "No se han insertado policías.";
+        } else if (contador_no == 1) {
+            text = "Número de policias insertados: " + contador + "\nEl policía " + nombres + " ya estaba en la base de datos.";
         } else {
-            text = "Los policías " + nombres + " ya estaban insertados"
-                    + "\n" + "No se han insertado " + contador + " policías";
+            text = "Número de policias insertados: " + contador + "\nLos policías " + nombres + " ya estaban insertados."
+                    + "\n" + "No se han insertado un total de " + contador_no + " policías.";
         }
         
         return text;

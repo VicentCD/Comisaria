@@ -105,10 +105,11 @@ public class JDBCDAO {
     public List<Policia> MostrarPolicias(String ordenacion) {
         List<Policia> listaPolicias = new ArrayList<>();
         int idPolicia, edad;
-        String nombre, numPlaca, departamento, foto, sql = "SELECT * FROM policia ORDER BY " + ordenacion;
+        String nombre, numPlaca, departamento, foto, sql = "SELECT * FROM policia ORDER BY ?";
         try {
 
             PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, ordenacion);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 
@@ -204,14 +205,15 @@ public class JDBCDAO {
     public int ActualizarPolicias(Policia p) throws SQLException {
         PreparedStatement ps;
         String update = "UPDATE policia "
-                + "SET nombre=?, numplaca=?, edad=?, departamento=?, foto=?"
-                + "WHERE idpolicia = " + p.getIdPolicia().toString();
+                + "SET nombre=?, numplaca=?, edad=?, departamento=?, foto=? "
+                + "WHERE idpolicia = ?";
         ps = conexion.prepareStatement(update);
         ps.setString(1, p.getNombre());
         ps.setString(2, p.getNumPlaca());
         ps.setInt(3, p.getEdad());
         ps.setString(4, p.getDepartamento());
         ps.setString(5, p.getFoto());
+        ps.setInt(6, p.getIdPolicia());
         return ps.executeUpdate();
     }
 }
