@@ -46,8 +46,8 @@ public class JDBCDAO {
         return filasafectadas;
     }
 
-    public String recogerUltimo(String sql, String campo) {
-        String ultimo = "";
+    public String recogerUltimo(String tabla, String campo) {
+        String ultimo = "", sql = "select * from "+ tabla +" order by "+campo;
         PreparedStatement ps;
         ResultSet rs;
         try {
@@ -121,7 +121,7 @@ public class JDBCDAO {
             ps.setInt(1, idPolicia);
             ps.executeUpdate();
             borrado = true;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -145,8 +145,8 @@ public class JDBCDAO {
         ps.executeUpdate();
 
     }
-    
-    public void ActualizarPolicias(Policia p) throws SQLException{
+
+    public void ActualizarPolicias(Policia p) throws SQLException {
         PreparedStatement ps;
         String update = "UPDATE policia "
                 + "SET nombre=?, numplaca=?, edad=?, departamento=?, foto=?"
