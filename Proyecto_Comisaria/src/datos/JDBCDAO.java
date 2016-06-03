@@ -5,11 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import modelo.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 public class JDBCDAO {
 
@@ -60,7 +62,6 @@ public class JDBCDAO {
         }
         return ultimo;
     }
-        
 
     public String recogerUltimoPolicia() {
         String ultimo = "", sql = "SELECT max(idPolicia) FROM policia";
@@ -127,6 +128,41 @@ public class JDBCDAO {
         }
 
         return listaPolicias;
+    }
+
+    public List<Multa> ObtenerMultasPolicia(List<Policia> ListaPolicias) {
+
+        List<Multa> ListaMultas = new ArrayList<>();
+        String select = "SELECT * FROM multas where idPolicia = ?";
+        String descripcion="", nifInfractor="";
+        Integer id, idPolicia, idTipo;
+        Timestamp fecha;
+        Double importe;
+        
+        try {
+            PreparedStatement ps = conexion.prepareStatement(select);
+            ResultSet rs;
+
+            for (Policia p : ListaPolicias) {
+
+                ps.setInt(1, p.getIdPolicia());
+                rs = ps.executeQuery();
+                id=rs.getInt("id");
+                descripcion=rs.getString("descripcion");
+                fecha = rs.getTimestamp("fecha");
+                importe = rs.getDouble("importe");
+                idPolicia=rs.getInt("idpolicia");
+                nifInfractor=rs.getString("nifinfractor");
+                idTipo= rs.getInt("idtipo");
+                
+                Multa m = new Multa(descripcion, fecha, importe, idPolicia, nifInfractor, idTipo);
+                ListaMultas.add(m);
+            }
+  
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ListaMultas;
     }
 
     public boolean BorrarPolicia(Integer idPolicia) {
