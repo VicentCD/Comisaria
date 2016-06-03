@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 import modelo.Multa;
 import modelo.MultaTipo;
 import modelo.Policia;
@@ -27,10 +28,27 @@ public class MultasListado extends javax.swing.JDialog {
         DefaultListModel modelo = new DefaultListModel();
         for (Policia p : jd_multas.MostrarPolicias("idPolicia")) {
             modelo.addElement(p);
-            
+
         }
         this.ListPolicias.setModel(modelo);
     }
+//        private void cargaTablaPolicias(List<Multa> ListaMultas) {
+//        String[] titulos = {"idPolicia", "Nombre", "Nº Placa", "Edad", "Departamento"};
+//        String[] fila = new String[6];
+//        
+//        ListaMultas = jd_multas.MultasListado("idPolicia");
+//        DefaultTableModel model = new DefaultTableModel(null, titulos);
+//        for (Policia p : listaPolicias) {
+//            fila[0] = p.getIdPolicia().toString();
+//            fila[1] = p.getNombre();
+//            fila[2] = p.getNumPlaca();
+//            fila[3] = p.getEdad().toString();
+//            fila[4] = p.getDepartamento();
+//            fila[5] = p.getFoto();
+//            model.addRow(fila);
+//        }
+//        this.TablaMultas.setModel(model);
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,14 +60,14 @@ public class MultasListado extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablaMultas = new javax.swing.JTable();
         BotonBuscar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         ListPolicias = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaMultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -60,7 +78,7 @@ public class MultasListado extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TablaMultas);
 
         BotonBuscar.setText("Buscar multas");
         BotonBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -108,17 +126,16 @@ public class MultasListado extends javax.swing.JDialog {
     private void BotonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBuscarActionPerformed
         // TODO add your handling code here:
         List<Policia> ListaPolicias = new ArrayList<>();
-        List<Multa> ListaMultas = new ArrayList<>();
         ListaPolicias = ListPolicias.getSelectedValuesList();
-        ListaMultas=jd_multas.ObtenerMultasPolicia(ListaPolicias);
+        List<Multa> ListaMultas = jd_multas.ObtenerMultasPolicia(ListaPolicias);
     }//GEN-LAST:event_BotonBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonBuscar;
     private javax.swing.JList ListPolicias;
+    private javax.swing.JTable TablaMultas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
