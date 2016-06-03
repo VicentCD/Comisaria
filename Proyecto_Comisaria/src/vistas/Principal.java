@@ -310,7 +310,10 @@ public class Principal extends javax.swing.JFrame {
         int dialogResult = JOptionPane.showConfirmDialog(this, "¿Seguro que quieres borrarlo?", "Warning", dialogButton);
         
         if (dialogButton == dialogResult) {
-            jd.BorrarPolicia(pSelected.getIdPolicia());
+            boolean borrado = jd.BorrarPolicia(pSelected.getIdPolicia());
+            if (borrado == false){
+                JOptionPane.showMessageDialog(this, "No se puede borrar, tiene multas asociadas","Imposible borrar",  JOptionPane.INFORMATION_MESSAGE);
+            }
         }
         cargaTablaPolicias("idPolicia");
         PoliciaTabla.setAutoCreateRowSorter(true);

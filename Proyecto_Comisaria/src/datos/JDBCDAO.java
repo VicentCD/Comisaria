@@ -119,11 +119,14 @@ public class JDBCDAO {
         try {
             PreparedStatement ps = conexion.prepareStatement(borrar);
             ps.setInt(1, idPolicia);
-            ps.executeUpdate();
+            if (ps.executeUpdate()==1){
             borrado = true;
-
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
+            if (ex.getErrorCode()== 1451){
+                borrado = false;
+            }
+            
         }
 
         return borrado;
