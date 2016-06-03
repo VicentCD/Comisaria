@@ -25,7 +25,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             FieldEdad.setText(pSelected.getEdad().toString());
             FieldDepartamento.setText(pSelected.getDepartamento());
         } else {
-            FieldIDPolicia.setText(String.valueOf(Integer.parseInt(jd_policias.recogerUltimo("policia", "idPolicia")) + 1));
+            FieldIDPolicia.setText(String.valueOf(Integer.parseInt(jd_policias.recogerUltimoPolicia()) + 1));
         }
     }
 
@@ -185,8 +185,10 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         // TODO add your handling code here:
         Policia pActualizado = new Policia(Integer.parseInt(FieldIDPolicia.getText()), FieldNombre.getText(), FieldNPlaca.getText(), Integer.parseInt(FieldEdad.getText()), FieldDepartamento.getText(), null);
         try {
-            jd_policias.ActualizarPolicias(pActualizado);
-            JOptionPane.showMessageDialog(this, "Se ha modificado correctamente el policia.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            if (jd_policias.ActualizarPolicias(pActualizado) == 1) {
+                JOptionPane.showMessageDialog(this, "Se ha modificado correctamente el policia.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            }
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "No se ha podido modificar el policia correctamente.\nError: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
         }

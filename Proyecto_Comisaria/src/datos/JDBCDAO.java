@@ -46,15 +46,31 @@ public class JDBCDAO {
         return filasafectadas;
     }
 
-    public String recogerUltimo(String tabla, String campo) {
-        String ultimo = "", sql = "select * from "+ tabla +" order by "+campo;
+    public String recogerUltimaMulta() {
+        String ultimo = "", sql = "SELECT max(id) FROM multas";
         PreparedStatement ps;
         ResultSet rs;
         try {
             ps = conexion.prepareStatement(sql);
             rs = ps.executeQuery();
-            rs.last();
-            ultimo = rs.getString(campo);
+            rs.next();
+            ultimo = rs.getString("max(id)");
+        } catch (SQLException ex) {
+            Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ultimo;
+    }
+        
+
+    public String recogerUltimoPolicia() {
+        String ultimo = "", sql = "SELECT max(idPolicia) FROM policia";
+        PreparedStatement ps;
+        ResultSet rs;
+        try {
+            ps = conexion.prepareStatement(sql);
+            rs = ps.executeQuery();
+            rs.next();
+            ultimo = rs.getString("max(idPolicia)");
         } catch (SQLException ex) {
             Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -119,14 +135,14 @@ public class JDBCDAO {
         try {
             PreparedStatement ps = conexion.prepareStatement(borrar);
             ps.setInt(1, idPolicia);
-            if (ps.executeUpdate()==1){
-            borrado = true;
+            if (ps.executeUpdate() == 1) {
+                borrado = true;
             }
         } catch (SQLException ex) {
-            if (ex.getErrorCode()== 1451){
+            if (ex.getErrorCode() == 1451) {
                 borrado = false;
             }
-            
+
         }
 
         return borrado;
@@ -149,7 +165,7 @@ public class JDBCDAO {
 
     }
 
-    public void ActualizarPolicias(Policia p) throws SQLException {
+    public int ActualizarPolicias(Policia p) throws SQLException {
         PreparedStatement ps;
         String update = "UPDATE policia "
                 + "SET nombre=?, numplaca=?, edad=?, departamento=?, foto=?"
@@ -160,6 +176,6 @@ public class JDBCDAO {
         ps.setInt(3, p.getEdad());
         ps.setString(4, p.getDepartamento());
         ps.setString(5, p.getFoto());
-        ps.executeUpdate();
+        return ps.executeUpdate();
     }
 }
