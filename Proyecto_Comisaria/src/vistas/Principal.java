@@ -289,30 +289,27 @@ public class Principal extends javax.swing.JFrame {
 //         Cargar un archivo txt para introducirlo en la base de datos y posterior carga en la tabla de la pantalla principal
         JFileChooser fc = new JFileChooser("C:\\Users\\Gerard\\Documents\\NetBeansProjects\\Comisaria\\Proyecto_Comisaria");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto", "txt");
-        String mensaje = "";
+        String mensaje;
         fc.setFileFilter(filter);
         int returnVal = fc.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
             mensaje = ad.cargarPolicias(file);
+            JOptionPane.showMessageDialog(this, mensaje, "Mensaje:", JOptionPane.INFORMATION_MESSAGE);
         }
-        int dialogButton = JOptionPane.OK_OPTION;
-        JOptionPane.showMessageDialog(this, mensaje, "Mensaje:", JOptionPane.INFORMATION_MESSAGE);
         cargaTablaPolicias("idPolicia");
         PoliciaTabla.setAutoCreateRowSorter(true);
-        
-        
     }//GEN-LAST:event_BotonCargarPoliciasActionPerformed
 
     private void BotonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBorrarActionPerformed
         // TODO add your handling code here:
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(this, "¿Seguro que quieres borrarlo?", "Warning", dialogButton);
-        
+
         if (dialogButton == dialogResult) {
             boolean borrado = jd.BorrarPolicia(pSelected.getIdPolicia());
-            if (borrado == false){
-                JOptionPane.showMessageDialog(this, "No se puede borrar, tiene multas asociadas","Imposible borrar",  JOptionPane.INFORMATION_MESSAGE);
+            if (borrado == false) {
+                JOptionPane.showMessageDialog(this, "No se puede borrar, tiene multas asociadas", "Imposible borrar", JOptionPane.INFORMATION_MESSAGE);
             }
         }
         cargaTablaPolicias("idPolicia");
