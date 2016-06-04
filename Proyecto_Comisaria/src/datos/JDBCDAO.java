@@ -135,31 +135,31 @@ public class JDBCDAO {
 
         List<Multa> ListaMultas = new ArrayList<>();
         String select = "SELECT * FROM multas where idPolicia = ?";
-        String descripcion="", nifInfractor="";
+        String descripcion = "", nifInfractor = "";
         Integer id, idPolicia, idTipo;
         Timestamp fecha;
         Double importe;
-        
+        System.out.println(ListaPolicias);
         try {
-            PreparedStatement ps = conexion.prepareStatement(select);
-            ResultSet rs;
-
             for (Policia p : ListaPolicias) {
-
+                PreparedStatement ps = conexion.prepareStatement(select);
+                ResultSet rs;
                 ps.setInt(1, p.getIdPolicia());
                 rs = ps.executeQuery();
-                id=rs.getInt("id");
-                descripcion=rs.getString("descripcion");
-                fecha = rs.getTimestamp("fecha");
-                importe = rs.getDouble("importe");
-                idPolicia=rs.getInt("idpolicia");
-                nifInfractor=rs.getString("nifinfractor");
-                idTipo= rs.getInt("idtipo");
-                
-                Multa m = new Multa(descripcion, fecha, importe, idPolicia, nifInfractor, idTipo);
-                ListaMultas.add(m);
+                while (rs.next()) {
+                    descripcion = rs.getString("descripcion");
+                    fecha = rs.getTimestamp("fecha");
+                    importe = rs.getDouble("importe");
+                    idPolicia = rs.getInt("idpolicia");
+                    nifInfractor = rs.getString("nifinfractor");
+                    idTipo = rs.getInt("idtipo");
+
+                    Multa m = new Multa(descripcion, fecha, importe, idPolicia, nifInfractor, idTipo);
+                    ListaMultas.add(m);
+
+                }
             }
-  
+
         } catch (SQLException ex) {
             Logger.getLogger(JDBCDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
