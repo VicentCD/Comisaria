@@ -62,14 +62,5 @@ public class ArchivosDAO {
         return text;
     }
     
-    public File ExportarMultas (String text, String path) throws IOException{
-            File f = new File(path);
-            FileWriter fw = new FileWriter(f);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write("Listado de multas: ");
-            bw.write(text);
-            bw.close();
-        return f;
-    }
     
 }

@@ -159,19 +159,26 @@ public class MultasListado extends javax.swing.JDialog {
         String text="";
         int returnVal = fc.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
+            String [] lineas= new String[jTablaMultas.getRowCount()];
             for (int i = 0; i < jTablaMultas.getRowCount(); i++) {
-                text=text + "\n";
+                
                 for(int j=0; j<jTablaMultas.getColumnCount(); j++){
-                    text=text+","+jTablaMultas.getValueAt(i, j);
+                    text=text+jTablaMultas.getValueAt(i, j)+", ";
+                    
                 }
+                lineas[i]=text;
+                text="";
             }
            File fileToSave = fc.getSelectedFile();
            
             try {
                 BufferedWriter br = new BufferedWriter ( new FileWriter ( fileToSave + ".txt"));
                 br.write("Descripción, Fecha, Importe, IdPolicia, NifInfractor, IdTipo");
-                br.newLine();
-                br.write(text);
+                for(String s: lineas){
+                     br.newLine();
+                    br.write(s);
+                   
+                }
                 br.flush();
                 br.close();
             } catch (IOException ex) {
