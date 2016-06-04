@@ -58,4 +58,13 @@ public class ArchivosDAO {
         
         return text;
     }
+    
+    public File ExportarMultas (String text){
+        File f;
+        
+        
+        
+        return f;
+    }
+    
 }
