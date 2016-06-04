@@ -2,6 +2,10 @@ package vistas;
 
 import datos.ArchivosDAO;
 import datos.JDBCDAO;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -152,12 +156,28 @@ public class MultasListado extends javax.swing.JDialog {
     private void BotonExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonExportarActionPerformed
         // TODO add your handling code here:
         JFileChooser fc = new JFileChooser();
+        String text="";
         int returnVal = fc.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             for (int i = 0; i < jTablaMultas.getRowCount(); i++) {
-                for(int j=0; j<jTablaMultas.getColumnCount(); j++)
+                text=text + "\n";
+                for(int j=0; j<jTablaMultas.getColumnCount(); j++){
+                    text=text+","+jTablaMultas.getValueAt(i, j);
+                }
             }
-            File = archivosdao.ExportarMultas(text);
+           File fileToSave = fc.getSelectedFile();
+           
+            try {
+                BufferedWriter br = new BufferedWriter ( new FileWriter ( fileToSave + ".txt"));
+                br.write("Descripción, Fecha, Importe, IdPolicia, NifInfractor, IdTipo");
+                br.newLine();
+                br.write(text);
+                br.flush();
+                br.close();
+            } catch (IOException ex) {
+                Logger.getLogger(MultasListado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
 
         }
     }//GEN-LAST:event_BotonExportarActionPerformed

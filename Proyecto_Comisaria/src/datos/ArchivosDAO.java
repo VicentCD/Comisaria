@@ -2,9 +2,12 @@ package datos;
 
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -59,11 +62,13 @@ public class ArchivosDAO {
         return text;
     }
     
-    public File ExportarMultas (String text){
-        File f;
-        
-        
-        
+    public File ExportarMultas (String text, String path) throws IOException{
+            File f = new File(path);
+            FileWriter fw = new FileWriter(f);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write("Listado de multas: ");
+            bw.write(text);
+            bw.close();
         return f;
     }
     

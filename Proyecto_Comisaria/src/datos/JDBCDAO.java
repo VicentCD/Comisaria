@@ -139,7 +139,7 @@ public class JDBCDAO {
         Integer id, idPolicia, idTipo;
         Timestamp fecha;
         Double importe;
-        System.out.println(ListaPolicias);
+       
         try {
             for (Policia p : ListaPolicias) {
                 PreparedStatement ps = conexion.prepareStatement(select);
