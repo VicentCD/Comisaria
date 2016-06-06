@@ -35,6 +35,8 @@ public class MultasListado extends javax.swing.JDialog {
 
         this.setTitle("Listado de Multas");
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        
         jd_multas = jd;
         DefaultListModel modelo = new DefaultListModel();
         for (Policia p : jd_multas.MostrarPolicias("idPolicia")) {

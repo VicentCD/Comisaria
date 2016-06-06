@@ -24,6 +24,7 @@ public class MultasIntroducir extends javax.swing.JDialog {
         initComponents();
         this.setTitle("Introducción de Multas");
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
         jd_multas = jdbcdao;
 
         //Lista auxiliar

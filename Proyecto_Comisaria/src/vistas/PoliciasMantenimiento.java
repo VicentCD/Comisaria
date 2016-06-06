@@ -22,6 +22,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         initComponents();
         this.setTitle("Mantenimiento de Policias");
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        
         jd_policias = jd;
         if (pSelected != null) {
             accion = 1;
