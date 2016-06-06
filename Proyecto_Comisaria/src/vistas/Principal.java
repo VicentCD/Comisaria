@@ -267,6 +267,9 @@ public class Principal extends javax.swing.JFrame {
     private void PoliciaTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PoliciaTablaMouseClicked
         // TODO add your handling code here:
         int row = PoliciaTabla.getSelectedRow();
+        if (row == -1) {
+            pSelected = null;
+        }
         int col = PoliciaTabla.getColumnCount();
         Integer idPolicia, edad;
         String nombre, numPlaca, departamento, foto = "";

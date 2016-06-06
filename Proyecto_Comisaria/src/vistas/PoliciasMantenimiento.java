@@ -26,7 +26,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         this.setTitle("Mantenimiento de Policias");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        
+
         jd_policias = jd;
         if (pSelected != null) {
             accion = 1;
@@ -36,7 +36,6 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             FieldEdad.setText(pSelected.getEdad().toString());
             FieldDepartamento.setText(pSelected.getDepartamento());
         } else {
-
             FieldIDPolicia.setText(String.valueOf(Integer.parseInt(jd_policias.recogerUltimoPolicia()) + 1));
             BotonAplicarCambios.setText("Insertar policia");
         }
@@ -224,8 +223,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 if (jd_policias.InsertarPolicias(pInsertar) == 1) {
                     JOptionPane.showMessageDialog(this, "Se ha insertado correctamente el policia.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                 }
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "No se ha podido insertar el policia correctamente.\nError: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException | NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "No se ha podido insertar el policia correctamente.\nHay campos vacios o incorrectos.\nError: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_BotonAplicarCambiosActionPerformed
@@ -242,9 +241,8 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             this.rutaFoto = rutaImagen;
             ImageIcon foto = new ImageIcon(rutaImagen);
             this.Foto.setIcon(foto);
-            
-            
-        } 
+
+        }
     }//GEN-LAST:event_BotonFotoActionPerformed
 
 
