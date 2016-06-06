@@ -4,7 +4,9 @@ import datos.JDBCDAO;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.Policia;
 
 public class PoliciasMantenimiento extends javax.swing.JDialog {
@@ -91,6 +93,11 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         });
 
         BotonFoto.setText("Cambiar Foto");
+        BotonFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonFotoActionPerformed(evt);
+            }
+        });
 
         BotonAplicarCambios.setText("Aplicar Cambios");
         BotonAplicarCambios.addActionListener(new java.awt.event.ActionListener() {
@@ -175,9 +182,9 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(FieldDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(43, 43, 43)
+                .addGap(18, 18, 18)
                 .addComponent(BotonAplicarCambios)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -210,6 +217,20 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_BotonAplicarCambiosActionPerformed
+
+    private void BotonFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonFotoActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fc = new JFileChooser("C:\\Users\\Gerard\\Documents\\NetBeansProjects\\Comisaria\\Proyecto_Comisaria");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto", "txt");
+        String mensaje;
+        fc.setFileFilter(filter);
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            mensaje = ad.cargarPolicias(file);
+            JOptionPane.showMessageDialog(this, mensaje, "Mensaje:", JOptionPane.INFORMATION_MESSAGE);
+        } 
+    }//GEN-LAST:event_BotonFotoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
