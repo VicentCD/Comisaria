@@ -1,9 +1,11 @@
 package vistas;
 
 import datos.JDBCDAO;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -16,6 +18,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
      */
     JDBCDAO jd_policias;
     int accion;
+    String rutaFoto;
 
     public PoliciasMantenimiento(java.awt.Frame parent, boolean modal, JDBCDAO jd, Policia pSelected) {
         super(parent, modal);
@@ -54,6 +57,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         PanelFoto = new javax.swing.JPanel();
+        Foto = new javax.swing.JLabel();
         FieldNombre = new javax.swing.JTextField();
         FieldEdad = new javax.swing.JTextField();
         FieldDepartamento = new javax.swing.JTextField();
@@ -81,11 +85,17 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         PanelFoto.setLayout(PanelFotoLayout);
         PanelFotoLayout.setHorizontalGroup(
             PanelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(PanelFotoLayout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(Foto)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelFotoLayout.setVerticalGroup(
             PanelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 137, Short.MAX_VALUE)
+            .addGroup(PanelFotoLayout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(Foto)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         FieldNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -186,7 +196,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                             .addComponent(FieldDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(BotonAplicarCambios)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -199,7 +209,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private void BotonAplicarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAplicarCambiosActionPerformed
         // TODO add your handling code here:
         if (accion == 1) {
-            Policia pActualizado = new Policia(Integer.parseInt(FieldIDPolicia.getText()), FieldNombre.getText(), FieldNPlaca.getText(), Integer.parseInt(FieldEdad.getText()), FieldDepartamento.getText(), null);
+            Policia pActualizado = new Policia(Integer.parseInt(FieldIDPolicia.getText()), FieldNombre.getText(), FieldNPlaca.getText(), Integer.parseInt(FieldEdad.getText()), FieldDepartamento.getText(), this.rutaFoto);
             try {
                 if (jd_policias.ActualizarPolicias(pActualizado) == 1) {
                     JOptionPane.showMessageDialog(this, "Se ha modificado correctamente el policia.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
@@ -209,7 +219,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "No se ha podido modificar el policia correctamente.\nError: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            Policia pInsertar = new Policia(Integer.parseInt(FieldIDPolicia.getText()), FieldNombre.getText(), FieldNPlaca.getText(), Integer.parseInt(FieldEdad.getText()), FieldDepartamento.getText(), null);
+            Policia pInsertar = new Policia(Integer.parseInt(FieldIDPolicia.getText()), FieldNombre.getText(), FieldNPlaca.getText(), Integer.parseInt(FieldEdad.getText()), FieldDepartamento.getText(), this.rutaFoto);
             try {
                 if (jd_policias.InsertarPolicias(pInsertar) == 1) {
                     JOptionPane.showMessageDialog(this, "Se ha insertado correctamente el policia.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
@@ -223,14 +233,17 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private void BotonFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonFotoActionPerformed
         // TODO add your handling code here:
         JFileChooser fc = new JFileChooser("C:\\Users\\Gerard\\Documents\\NetBeansProjects\\Comisaria\\Proyecto_Comisaria");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de texto", "txt");
-        String mensaje;
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de imagen: ", "png");
         fc.setFileFilter(filter);
         int returnVal = fc.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
-            mensaje = ad.cargarPolicias(file);
-            JOptionPane.showMessageDialog(this, mensaje, "Mensaje:", JOptionPane.INFORMATION_MESSAGE);
+            String rutaImagen = file.getAbsolutePath();
+            this.rutaFoto = rutaImagen;
+            ImageIcon foto = new ImageIcon(rutaImagen);
+            this.Foto.setIcon(foto);
+            
+            
         } 
     }//GEN-LAST:event_BotonFotoActionPerformed
 
@@ -243,6 +256,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
     private javax.swing.JLabel FieldIDPolicia;
     private javax.swing.JFormattedTextField FieldNPlaca;
     private javax.swing.JTextField FieldNombre;
+    private javax.swing.JLabel Foto;
     private javax.swing.JPanel PanelFoto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
