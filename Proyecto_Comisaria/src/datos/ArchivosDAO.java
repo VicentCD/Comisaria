@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Policia;
 
 public class ArchivosDAO {
     
@@ -35,9 +36,9 @@ public class ArchivosDAO {
                 edad = Integer.valueOf(trozos[3]);
                 departamento = trozos[4];
                 foto = trozos[5];
-                
+                Policia p = new Policia(idPolicia, nombre, numPlaca, edad, departamento, foto);
                 try {
-                    jd.InsertarPolicias(idPolicia, nombre, numPlaca, edad, departamento, foto);
+                    jd.InsertarPolicias(p);
                     contador++;
                 } catch (SQLException ex) {
                     if (ex.getErrorCode() == 1062) {

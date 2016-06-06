@@ -2,6 +2,8 @@ package vistas;
 
 import datos.JDBCDAO;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Policia;
 
@@ -11,6 +13,7 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
      * Creates new form PoliciasMantenimiento
      */
     JDBCDAO jd_policias;
+    int accion;
 
     public PoliciasMantenimiento(java.awt.Frame parent, boolean modal, JDBCDAO jd, Policia pSelected) {
         super(parent, modal);
@@ -19,13 +22,16 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         jd_policias = jd;
         if (pSelected != null) {
+            accion = 1;
             FieldIDPolicia.setText(pSelected.getIdPolicia().toString());
             FieldNombre.setText(pSelected.getNombre());
             FieldNPlaca.setText(pSelected.getNumPlaca());
             FieldEdad.setText(pSelected.getEdad().toString());
             FieldDepartamento.setText(pSelected.getDepartamento());
         } else {
+
             FieldIDPolicia.setText(String.valueOf(Integer.parseInt(jd_policias.recogerUltimoPolicia()) + 1));
+            BotonAplicarCambios.setText("Insertar policia");
         }
     }
 
@@ -183,16 +189,26 @@ public class PoliciasMantenimiento extends javax.swing.JDialog {
 
     private void BotonAplicarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAplicarCambiosActionPerformed
         // TODO add your handling code here:
-        Policia pActualizado = new Policia(Integer.parseInt(FieldIDPolicia.getText()), FieldNombre.getText(), FieldNPlaca.getText(), Integer.parseInt(FieldEdad.getText()), FieldDepartamento.getText(), null);
-        try {
-            if (jd_policias.ActualizarPolicias(pActualizado) == 1) {
-                JOptionPane.showMessageDialog(this, "Se ha modificado correctamente el policia.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+        if (accion == 1) {
+            Policia pActualizado = new Policia(Integer.parseInt(FieldIDPolicia.getText()), FieldNombre.getText(), FieldNPlaca.getText(), Integer.parseInt(FieldEdad.getText()), FieldDepartamento.getText(), null);
+            try {
+                if (jd_policias.ActualizarPolicias(pActualizado) == 1) {
+                    JOptionPane.showMessageDialog(this, "Se ha modificado correctamente el policia.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "No se ha podido modificar el policia correctamente.\nError: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
             }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "No se ha podido modificar el policia correctamente.\nError: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Policia pInsertar = new Policia(Integer.parseInt(FieldIDPolicia.getText()), FieldNombre.getText(), FieldNPlaca.getText(), Integer.parseInt(FieldEdad.getText()), FieldDepartamento.getText(), null);
+            try {
+                if (jd_policias.InsertarPolicias(pInsertar) == 1) {
+                    JOptionPane.showMessageDialog(this, "Se ha insertado correctamente el policia.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "No se ha podido insertar el policia correctamente.\nError: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-
     }//GEN-LAST:event_BotonAplicarCambiosActionPerformed
 
 

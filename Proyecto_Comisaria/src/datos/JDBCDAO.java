@@ -139,7 +139,7 @@ public class JDBCDAO {
         Integer id, idPolicia, idTipo;
         Timestamp fecha;
         Double importe;
-       
+
         try {
             for (Policia p : ListaPolicias) {
                 PreparedStatement ps = conexion.prepareStatement(select);
@@ -185,21 +185,19 @@ public class JDBCDAO {
         return borrado;
     }
 
-    public void InsertarPolicias(Integer idPolicia, String nombre, String numPlaca, Integer edad, String departamento, String foto) throws SQLException {
+    public int InsertarPolicias(Policia p) throws SQLException {
         PreparedStatement ps;
         String insert = "INSERT INTO "
                 + "policia (idPolicia, nombre, numPlaca, edad, departamento, foto)"
                 + "VALUES (?,?,?,?,?,?)";
-
         ps = conexion.prepareStatement(insert);
-        ps.setInt(1, idPolicia);
-        ps.setString(2, nombre);
-        ps.setString(3, numPlaca);
-        ps.setInt(4, edad);
-        ps.setString(5, departamento);
-        ps.setString(6, foto);
-        ps.executeUpdate();
-
+        ps.setInt(1, p.getIdPolicia());
+        ps.setString(2, p.getNombre());
+        ps.setString(3, p.getNumPlaca());
+        ps.setInt(4, p.getEdad());
+        ps.setString(5, p.getDepartamento());
+        ps.setString(6, p.getFoto());
+        return ps.executeUpdate();
     }
 
     public int ActualizarPolicias(Policia p) throws SQLException {
